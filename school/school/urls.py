@@ -1,9 +1,10 @@
 from django.contrib import admin
-from django.conf import settings
 from django.urls import include, path
+from . import views
 
-urlpatterns = [path("admin/", admin.site.urls)]
-
+urlpatterns = [path("admin/", admin.site.urls),
+               path("", views.home),
+               
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns = [
