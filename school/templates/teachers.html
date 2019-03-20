@@ -1,12 +1,19 @@
 <html>
-    <head>
-        <title>Teacher list</title>
-    </head>
-    <body>
-        {% for teacher in teachers %}
+
+<head>
+    <title>Teachers list</title>
+</head>
+
+<body>
+    <div>
+        <h1>Teachers list</h1>
+    </div>
+
+    {% for teacher in teachers %}
     <div>
         <p>{{ teacher.name }} </p>
     </div>
     {% endfor %}
-    </body>
+</body>
+
 </html>
