@@ -1,0 +1,19 @@
+<html>
+
+<head>
+    <title>Students list</title>
+</head>
+
+<body>
+    <div>
+        <h1>Students list</h1>
+    </div>
+
+    {% for student in students %}
+    <div>
+        <p>{{ student.name }} </p>
+    </div>
+    {% endfor %}
+</body>
+
+</html>
