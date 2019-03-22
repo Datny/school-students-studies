@@ -1,0 +1,19 @@
+<html>
+
+<head>
+    <title>Teachers list</title>
+</head>
+
+<body>
+    <div>
+        <h1>Teachers list</h1>
+    </div>
+
+    {% for teacher in teachers %}
+    <div>
+        <p>{{ teacher.name }} </p>
+    </div>
+    {% endfor %}
+</body>
+
+</html>
