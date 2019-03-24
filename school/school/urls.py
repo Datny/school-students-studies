@@ -6,9 +6,8 @@ from . import views
 
 
 urlpatterns = [path("admin/", admin.site.urls), path("", views.home, name="home"),
-                path ("teachers/", views.teachers, name="students"),
-
-                path ("students/", views.students, name="teachers"),
+                path ("teachers/", views.teachers, name="teachers"),
+                path ("students/", views.students, name="students"),
                 re_path (r'^account/', include('account.urls'))]
 
 
