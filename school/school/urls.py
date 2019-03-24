@@ -11,6 +11,7 @@ urlpatterns = [path("admin/", admin.site.urls), path("", views.home, name="home"
                 re_path (r'^account/', include('account.urls'))]
 
 
+
 if settings.DEBUG:
     import debug_toolbar
 
