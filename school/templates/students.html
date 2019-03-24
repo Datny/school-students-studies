@@ -1,10 +1,5 @@
-<html>
-
-<head>
-    <title>Students list</title>
-</head>
-
-<body>
+{% extends "home.html" %}
+{% block content %}
     <div>
         <h1>Students list</h1>
     </div>
@@ -14,6 +9,4 @@
         <p>{{ student.name }} </p>
     </div>
     {% endfor %}
-</body>
-
-</html>
+{% endblock %}

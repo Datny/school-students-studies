@@ -1,6 +1,14 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'school/style.css' %}">
+
+
 <h1>Welcome on school register page</h1>
-<button onclick="location.href='http://www.example.com'" type="button">
-         Students</button>
-<button onclick="location.href='http://www.example.com'" type="button">
-         Teachers</button>
+    <ul>
+        <li><a href="{%url 'home'%}">Home</a></li>
+        <li><a href="{%url 'students'%}">Students</a></li>
+        <li><a href="{%url 'teachers'%}">Teachers</a></li>
+    </ul>
+{% block content %}
+{% endblock %}
+
 
