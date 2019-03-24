@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ["127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
+    "account",
     "school",
     "django.contrib.admin",
     "django.contrib.auth",
