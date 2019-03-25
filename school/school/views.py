@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Teacher
 from .models import Student
 from .forms import AddTeacherForm
@@ -10,9 +10,12 @@ def home(request):
 
 def teachers(request):
     teachers = Teacher.objects.order_by("name")
-    form = AddTeacherForm(request.POST)
-    if request.method == "POST" and form.is_valid():
-        form.save()
+
+    if request.method == "POST":
+        form = AddTeacherForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('teachers')
     else:
         form = AddTeacherForm()
     return render(request, 'teachers.html', {"form": form, "teachers": teachers})

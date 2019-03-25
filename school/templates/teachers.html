@@ -3,7 +3,12 @@
     <div>
         <h1>Teachers list</h1>
     </div>
-
+    <h1>Add teacher:</h1>
+    <form method="POST" >
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
 
     {% for teacher in teachers %}
     <div>
@@ -11,10 +16,5 @@
     </div>
     {% endfor %}
 
-    <h1>Add teacher:</h1>
-    <form method="POST" >
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
-    </form>
+
 {% endblock %}
