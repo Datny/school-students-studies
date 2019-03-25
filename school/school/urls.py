@@ -1,12 +1,14 @@
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path,re_path
 from django.conf import settings
 
 from . import views
 
-urlpatterns = [path("admin/", admin.site.urls), path("", views.home), 
-                path ("teachers/", views.teachers), 
-                path ("students/", views.students)]
+
+urlpatterns = [path("admin/", admin.site.urls), path("", views.home, name="home"),
+                path ("teachers/", views.teachers, name="students"),
+                path ("students/", views.students, name="teachers"),
+                re_path (r'^account/', include('account.urls'))]
 
 if settings.DEBUG:
     import debug_toolbar
