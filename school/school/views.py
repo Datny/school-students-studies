@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from .models import Teacher
 from .models import Student
-from django import forms
-
 
 def home(request):
     return render(request, "home.html")
@@ -16,5 +14,4 @@ def teachers(request):
 def students(request):
     students = Student.objects.order_by("name")
     return render(request, "students.html", {"students": students})
-
 
