@@ -3,6 +3,7 @@ from .models import Teacher
 from .models import Student
 from .forms import StudentForm
 from django import forms
+from .forms import AddTeacherForm
 
 
 def home(request):
@@ -11,11 +12,20 @@ def home(request):
 
 def teachers(request):
     teachers = Teacher.objects.order_by("name")
-    return render(request, "teachers.html", {"teachers": teachers})
+
+    if request.method == "POST":
+        form = AddTeacherForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("teachers")
+    else:
+        form = AddTeacherForm()
+    return render(request, "teachers.html", {"form": form, "teachers": teachers})
 
 
 def students(request):
     students = Student.objects.order_by("name")
+    
 
     if request.method == "POST":
         form = StudentForm(request.POST)
