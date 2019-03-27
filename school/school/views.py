@@ -25,5 +25,3 @@ def students(request):
     else:
         form = StudentForm()
     return render(request, "students.html", {"form": form, "students": students})
-
-
