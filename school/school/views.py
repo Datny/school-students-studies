@@ -21,7 +21,7 @@ def students(request):
         form = StudentForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("Student")
+            return redirect("students")
     else:
         form = StudentForm()
     return render(request, "students.html", {"form": form, "students": students})
