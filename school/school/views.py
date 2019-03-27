@@ -15,16 +15,12 @@ def teachers(request):
         form = AddTeacherForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('teachers')
+            return redirect("teachers")
     else:
         form = AddTeacherForm()
-    return render(request, 'teachers.html', {"form": form, "teachers": teachers})
+    return render(request, "teachers.html", {"form": form, "teachers": teachers})
 
 
 def students(request):
     students = Student.objects.order_by("name")
     return render(request, "students.html", {"students": students})
-
-
-
-
