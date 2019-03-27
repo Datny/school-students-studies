@@ -1,12 +1,12 @@
 {% extends "home.html" %}
 {% block content %}
     <div>
-        <h1>Teachers list</h1>
+        <h1>Students list</h1>
     </div>
 
-    {% for teacher in teachers %}
+    {% for student in students %}
     <div>
-        <p>{{ teacher.name }} </p>
+        <p>{{ student.name }} </p>
     </div>
     {% endfor %}
 {% endblock %}
