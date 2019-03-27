@@ -3,6 +3,12 @@
     <div>
         <h1>Students list</h1>
     </div>
+    <h1>Add Student:</h1>
+    <form method="POST" >
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
 
     {% for student in students %}
     <div>
