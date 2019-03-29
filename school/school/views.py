@@ -4,6 +4,8 @@ from .models import Student
 from .forms import StudentForm
 from django import forms
 from .forms import AddTeacherForm
+from .models import Grade
+from .forms import GradeForm
 
 
 def home(request):
@@ -35,3 +37,16 @@ def students(request):
     else:
         form = StudentForm()
     return render(request, "students.html", {"form": form, "students": students})
+
+def grades(request):
+    grades = Grade.objects.order_by("grade")
+    
+
+    if request.method == "POST":
+        form = GradeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("grades")
+    else:
+        form = GradeForm()
+    return render(request, "grades.html", {"form": form, "grades": grades})
