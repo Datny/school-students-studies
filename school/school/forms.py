@@ -1,15 +1,18 @@
 from django import forms
-from .models import Student
-from .models import Teacher
+from .models import *
+
 
 class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
-        fields = ("name",)
-from .models import Teacher
-
+        fields = ("name", "group", "subjects")
 
 class AddTeacherForm(forms.ModelForm):
     class Meta:
         model = Teacher
-        fields = ("name",)
+        fields = ("name", "description")
+
+class GradeForm(forms.ModelForm):
+    class Meta:
+        model = Grade
+        fields = ("grade", "student", "teacher", "subject", "date", "descritption")        
