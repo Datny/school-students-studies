@@ -22,7 +22,7 @@ def teachers(request):
             return redirect("teachers")
     else:
         form = AddTeacherForm()
-    return render(request, "teachers.html", {"form": form, "teachers": teachers})
+    return render(request, "teachers.html", {"form": form, "teachers": teachers},)
 
 
 def students(request):
