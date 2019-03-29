@@ -10,11 +10,18 @@
         <button type="submit" class="save btn btn-default">Save</button>
     </form>
 
-    {% for teacher in teachers %}
-    <div>
-        <p>{{ teacher.name }} </p>
-    </div>
-    {% endfor %}
-
+    <table>
+            <tr>
+                <td>Teacher</td>
+                <td>Description</td>
+            </tr>
+            {% for teacher in teachers %}
+            <tr>
+                <td> {{teacher.name}}</td>
+                <td> {{teacher.description}}</td>
+                
+            </tr>
+            {% endfor %}
+        </table>
 
 {% endblock %}
