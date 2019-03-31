@@ -1,0 +1,29 @@
+{% extends "home.html" %}
+{% block content %}
+    <div>
+        <h1>Subjects list</h1>
+    </div>
+    <h2>Add subject:</h2>
+    <form method="POST" >
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+
+    <table>
+            <tr>
+                <td>Name</td>
+                <td>Teacher</td>
+                <td>Group</td>
+            </tr>
+            {% for subject in subjects %}
+            <tr>
+                <td> {{subject.name}}</td>
+                <td> {{subject.teacher}}</td>
+                <td> {{subject.group}}</td>
+                
+            </tr>
+            {% endfor %}
+        </table>
+
+{% endblock %}
