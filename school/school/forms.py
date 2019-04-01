@@ -16,3 +16,13 @@ class GradeForm(forms.ModelForm):
     class Meta:
         model = Grade
         fields = ("grade", "student", "teacher", "subject", "date", "descritption")        
+
+class GroupForm(forms.ModelForm):
+    class Meta:
+        model = Group
+        fields = ("name", "teachers", "create_date")        
+
+class SubjectForm(forms.ModelForm):
+    class Meta:
+        model = Subject
+        fields = ("name", "teacher", "group")        
