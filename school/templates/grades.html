@@ -1,37 +1,39 @@
 {% extends "home.html" %}
 {% block content %}
-    <div>
-        <h1>Grades list</h1>
-    </div>
-    <h2>Add grade:</h2>
-    <form method="POST" >
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
-    </form>
+<div>
+    <h1>Grades list</h1>
+</div>
+<h2>Add grade:</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="save btn btn-default">Save</button>
+</form>
 
-    <table>
-        <tr>
-            <td> Student </td>
-            <td> Subject </td>
-            <td> Grade </td>
-            <td> Teacher </td>
-            <td> Date </td>
-            <td> Descritption </td>
-        </tr>
-    
+<table>
+    <tr>
+        <td> Student </td>
+        <td> Subject </td>
+        <td> Grade </td>
+        <td> Teacher </td>
+        <td> Date </td>
+        <td> Descritption </td>
+        <td></td>
+    </tr>
+
 
     {% for grade in grades %}
-    
-            <tr>
-                <td> {{ grade.student }}  </td>
-                <td>  {{ grade.subject }} </td>
-                <td>{{ grade.grade }} </td>
-                <td> {{ grade.teacher }} </td>
-                <td> {{ grade.date }} </td>
-                <td> {{ grade.descritption }} </td>
-            </tr>
-   
+
+    <tr>
+        <td> {{ grade.student }} </td>
+        <td> {{ grade.subject }} </td>
+        <td>{{ grade.grade }} </td>
+        <td> {{ grade.teacher }} </td>
+        <td> {{ grade.date }} </td>
+        <td> {{ grade.descritption }} </td>
+        <td><a class="btn btn-default" href="{% url 'grade_edit' pk=grade.pk %}">edit</a></td>
+    </tr>
+
     {% endfor %}
 </table>
 
