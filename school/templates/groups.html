@@ -15,13 +15,14 @@
                 <td>Name</td>
                 <td>Teacher</td>
                 <td>Create date</td>
+                <td></td>
             </tr>
             {% for group in groups %}
             <tr>
                 <td> {{group.name}}</td>
                 <td> {{group.get_teachers}}</td>
                 <td> {{group.create_date}}</td>
-                
+                <td><a class="btn btn-default" href="{% url 'group_edit' pk=group.pk %}">EDIT</a></td>
             </tr>
             {% endfor %}
         </table>

@@ -30,7 +30,7 @@ def teachers(request):
 
 
 def students(request):
-    students = Student.objects.order_by("name")
+    students = Student.objects.order_by("group", "name")
     
 
     if request.method == "POST":
@@ -72,7 +72,6 @@ def grade_edit(request,pk):
 def groups(request):
     groups = Group.objects.order_by("name")
     
-
     if request.method == "POST":
         form = GroupForm(request.POST)
         if form.is_valid():
@@ -82,10 +81,23 @@ def groups(request):
         form = GroupForm()
     return render(request, "groups.html", {"form": form, "groups": groups})
 
+def group_edit(request,pk):
+    group = get_object_or_404(Group, pk=pk)
+    groups = Group.objects.order_by("name")
+
+    if request.method == "POST":
+        form = GroupForm(request.POST, instance=group)
+        if form.is_valid():
+            form.save()
+            return redirect("groups")
+    else:
+        form = GroupForm(instance=group)
+    return render(request, "groups.html", {"form": form, "groups": groups})
+
+
 def subjects(request):
     subjects = Subject.objects.order_by("name")
     
-
     if request.method == "POST":
         form = SubjectForm(request.POST)
         if form.is_valid():
@@ -94,3 +106,16 @@ def subjects(request):
     else:
         form = SubjectForm()
     return render(request, "subjects.html", {"form": form, "subjects": subjects})
+
+def subject_edit(request,pk):
+    subject = get_object_or_404(Subject, pk=pk)
+    subjects = Subject.objects.order_by("name")
+
+    if request.method == "POST":
+        form = SubjectForm(request.POST, instance=subject)
+        if form.is_valid():
+            form.save()
+            return redirect ("subjects")
+    else:
+        form = SubjectForm(instance=subject)
+    return render(request, "subjects.html", {"form": form, "subjects": subjects})    
