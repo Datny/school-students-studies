@@ -11,6 +11,8 @@ urlpatterns = [
     path("teachers/", views.teachers, name="teachers"),
     path("students/", views.students, name="students"),
     path("grades/", views.grades, name="grades"),
+    path("<int:pk>/grade_edit/", views.grade_edit, name="grade_edit"),
+    
     path("groups/", views.groups, name="groups"),
     path("subjects/", views.subjects, name="subjects"),
     

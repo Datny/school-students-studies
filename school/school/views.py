@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django import forms
+from django.views.generic.edit import UpdateView
 from .models import Teacher
+from .forms import AddTeacherForm
 from .models import Student
 from .forms import StudentForm
-from django import forms
-from .forms import AddTeacherForm
 from .models import Grade
 from .forms import GradeForm
 from .models import Group
@@ -53,6 +54,20 @@ def grades(request):
     else:
         form = GradeForm()
     return render(request, "grades.html", {"form": form, "grades": grades})
+
+def grade_edit(request,pk):
+    grade = get_object_or_404(Grade, pk=pk)
+    grades = Grade.objects.order_by("grade")
+
+    if request.method == "POST":
+        form = GradeForm(request.POST, instance=grade)
+        if form.is_valid():
+            form.save()
+            return redirect("grades")
+    else:
+        form = GradeForm(instance=grade)
+    return render(request, "grades.html", {"form": form, "grades": grades})
+
 
 def groups(request):
     groups = Group.objects.order_by("name")
