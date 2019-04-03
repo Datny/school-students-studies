@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
 
-
 class Teacher(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=250, default="")

@@ -6,7 +6,12 @@ from django import forms
 from .forms import AddTeacherForm
 from .models import Grade
 from .forms import GradeForm
+from .forms import LoginForm
 
+
+def login(request):
+    form = LoginForm
+    return render(request, 'login.html', {'form': form})
 
 def home(request):
     return render(request, "home.html")

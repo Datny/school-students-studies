@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import include, path,re_path
 from django.conf import settings
+from django.contrib.auth import views as auth_views
+
 
 from . import views
 
@@ -12,6 +14,8 @@ urlpatterns = [
     path("students/", views.students, name="students"),
     path("grades/", views.grades, name="grades"),
     re_path(r"^account/", include("account.urls")),
+    path('login/', views.login, name='login'),
+
 ]
 
 
