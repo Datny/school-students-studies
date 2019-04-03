@@ -10,6 +10,7 @@ class Teacher(models.Model):
     def __str__(self):
         return self.name
 
+
 ####
 class Group(models.Model):
     name = models.CharField(max_length=100)
@@ -22,6 +23,7 @@ class Group(models.Model):
     def __str__(self):
         return self.name
 
+
 ####
 class Subject(models.Model):
     name = models.CharField(max_length=100)
@@ -30,6 +32,8 @@ class Subject(models.Model):
 
     def __str__(self):
         return self.name
+
+
 ####
 class Student(models.Model):
     name = models.CharField(max_length=100)
@@ -42,12 +46,12 @@ class Student(models.Model):
     def __str__(self):
         return self.name
 
+
 ####
 def grades(value):
     if value < 1 or value > 6:
-        raise ValidationError(
-            "Grade should be a from 1 to 6 number"
-        )
+        raise ValidationError("Grade should be a from 1 to 6 number")
+
 
 class Grade(models.Model):
     grade = models.IntegerField(validators=[grades], default=1)
@@ -56,6 +60,6 @@ class Grade(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     date = models.DateField(default=timezone.now())
     descritption = models.CharField(max_length=100)
-    
+
     def __str__(self):
         return self.grade

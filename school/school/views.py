@@ -13,8 +13,6 @@ from .forms import SubjectForm
 from .forms import LoginForm
 
 
-
-
 def login(request):
     form = LoginForm
     return render(request, "login.html", {"form": form})
@@ -34,12 +32,11 @@ def teachers(request):
             return redirect("teachers")
     else:
         form = AddTeacherForm()
-    return render(request, "teachers.html", {"form": form, "teachers": teachers},)
+    return render(request, "teachers.html", {"form": form, "teachers": teachers})
 
 
 def students(request):
     students = Student.objects.order_by("name")
-    
 
     if request.method == "POST":
         form = StudentForm(request.POST)
@@ -50,9 +47,9 @@ def students(request):
         form = StudentForm()
     return render(request, "students.html", {"form": form, "students": students})
 
+
 def grades(request):
     grades = Grade.objects.order_by("grade")
-    
 
     if request.method == "POST":
         form = GradeForm(request.POST)
@@ -63,9 +60,9 @@ def grades(request):
         form = GradeForm()
     return render(request, "grades.html", {"form": form, "grades": grades})
 
+
 def groups(request):
     groups = Group.objects.order_by("name")
-    
 
     if request.method == "POST":
         form = GroupForm(request.POST)
@@ -76,9 +73,9 @@ def groups(request):
         form = GroupForm()
     return render(request, "groups.html", {"form": form, "groups": groups})
 
+
 def subjects(request):
     subjects = Subject.objects.order_by("name")
-    
 
     if request.method == "POST":
         form = SubjectForm(request.POST)
