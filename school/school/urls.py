@@ -13,6 +13,9 @@ urlpatterns = [
     path("teachers/", views.teachers, name="teachers"),
     path("students/", views.students, name="students"),
     path("grades/", views.grades, name="grades"),
+    path("groups/", views.groups, name="groups"),
+    path("subjects/", views.subjects, name="subjects"),
+    
     re_path(r"^account/", include("account.urls")),
     path("login/", views.login, name="login"),
 ]

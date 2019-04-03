@@ -5,7 +5,10 @@ from .forms import StudentForm
 from django import forms
 from .forms import AddTeacherForm
 from .models import Grade
+from .models import Group
 from .forms import GradeForm
+from .models import Subject
+from .forms import SubjectForm
 from .forms import LoginForm
 
 
@@ -55,3 +58,29 @@ def grades(request):
     else:
         form = GradeForm()
     return render(request, "grades.html", {"form": form, "grades": grades})
+
+def groups(request):
+    groups = Group.objects.order_by("name")
+    
+
+    if request.method == "POST":
+        form = GroupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("groups")
+    else:
+        form = GroupForm()
+    return render(request, "groups.html", {"form": form, "groups": groups})
+
+def subjects(request):
+    subjects = Subject.objects.order_by("name")
+    
+
+    if request.method == "POST":
+        form = SubjectForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("subjects")
+    else:
+        form = SubjectForm()
+    return render(request, "subjects.html", {"form": form, "subjects": subjects})
