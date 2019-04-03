@@ -10,6 +10,15 @@ from .models import Group
 from .forms import GroupForm
 from .models import Subject
 from .forms import SubjectForm
+from .forms import LoginForm
+
+
+
+
+def login(request):
+    form = LoginForm
+    return render(request, "login.html", {"form": form})
+
 
 def home(request):
     return render(request, "home.html")
