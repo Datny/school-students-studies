@@ -45,6 +45,20 @@ def students(request):
         form = StudentForm()
     return render(request, "students.html", {"form": form, "students": students})
 
+def student_edit(request,pk):
+    student = get_object_or_404(Student, pk=pk)
+    students = Student.objects.order_by("group", "name")
+
+    if request.method == "POST":
+        form = StudentForm(request.POST, instance=student)
+        if form.is_valid():
+            form.save()
+            return redirect("students")
+    else: 
+        form = StudentForm(instance=student)
+    return render(request, "students.html", {"form": form, "students": students})
+
+
 def grades(request):
     grades = Grade.objects.order_by("grade")
     
