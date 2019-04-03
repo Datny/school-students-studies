@@ -1,16 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django import forms
 from django.views.generic.edit import UpdateView
-from .models import Teacher
-from .forms import AddTeacherForm
-from .models import Student
-from .forms import StudentForm
-from .models import Grade
-from .forms import GradeForm
-from .models import Group
-from .forms import GroupForm
-from .models import Subject
-from .forms import SubjectForm
+from .models import Teacher, Student, Grade, Group, Subject
+from .forms import TeacherForm, StudentForm, GradeForm, GroupForm, SubjectForm
 
 def home(request):
     return render(request, "home.html")
@@ -20,19 +12,30 @@ def teachers(request):
     teachers = Teacher.objects.order_by("name")
 
     if request.method == "POST":
-        form = AddTeacherForm(request.POST)
+        form = TeacherForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect("teachers")
     else:
-        form = AddTeacherForm()
-    return render(request, "teachers.html", {"form": form, "teachers": teachers},)
+        form = TeacherForm()
+    return render(request, "teachers.html", {"form": form, "teachers": teachers})
 
+def teacher_edit(request,pk):
+    teacher = get_object_or_404(Teacher, pk=pk)
+    teachers = Teacher.objects.order_by("name")
+
+    if request.method == "POST":
+        form = TeacherForm(request.POST, instance=teacher)
+        if form.is_valid():
+            form.save()
+            return redirect("teachers")
+    else:
+        form = TeacherForm(instance=teacher)
+    return render(request, "teachers.html", {"form": form, "teachers": teachers})
 
 def students(request):
     students = Student.objects.order_by("group", "name")
     
-
     if request.method == "POST":
         form = StudentForm(request.POST)
         if form.is_valid():

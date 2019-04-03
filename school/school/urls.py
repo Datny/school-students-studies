@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import include, path,re_path
+from django.urls import include, path, re_path
 from django.conf import settings
 
 from . import views
@@ -9,6 +9,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.home, name="home"),
     path("teachers/", views.teachers, name="teachers"),
+    path("<int:pk>/teacher_edit/", views.teacher_edit, name="teacher_edit"),
     path("students/", views.students, name="students"),
     path("grades/", views.grades, name="grades"),
     path("<int:pk>/grade_edit/", views.grade_edit, name="grade_edit"),
