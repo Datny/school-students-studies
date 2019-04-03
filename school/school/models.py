@@ -14,7 +14,7 @@ class Teacher(models.Model):
 class Group(models.Model):
     name = models.CharField(max_length=100)
     teachers = models.ManyToManyField(Teacher)
-    create_date = models.DateField(default=timezone.now())
+    create_date = models.DateField(default=timezone.now)
 
     def get_teachers(self):
         return ",  ".join([teacher.name for teacher in self.teachers.all()])
@@ -54,7 +54,7 @@ class Grade(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    date = models.DateField(default=timezone.now())
+    date = models.DateField(default=timezone.now)
     descritption = models.CharField(max_length=100)
     
     def __str__(self):
