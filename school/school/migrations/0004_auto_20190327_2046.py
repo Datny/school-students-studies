@@ -8,24 +8,28 @@ from django.utils.timezone import utc
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('school', '0003_auto_20190327_2025'),
-    ]
+    dependencies = [("school", "0003_auto_20190327_2025")]
 
     operations = [
         migrations.AlterField(
-            model_name='grade',
-            name='date',
-            field=models.DateField(default=datetime.datetime(2019, 3, 27, 19, 45, 53, 834689, tzinfo=utc)),
+            model_name="grade",
+            name="date",
+            field=models.DateField(
+                default=datetime.datetime(2019, 3, 27, 19, 45, 53, 834689, tzinfo=utc)
+            ),
         ),
         migrations.AlterField(
-            model_name='group',
-            name='create_date',
-            field=models.DateField(default=datetime.datetime(2019, 3, 27, 19, 45, 53, 823689, tzinfo=utc)),
+            model_name="group",
+            name="create_date",
+            field=models.DateField(
+                default=datetime.datetime(2019, 3, 27, 19, 45, 53, 823689, tzinfo=utc)
+            ),
         ),
         migrations.AlterField(
-            model_name='student',
-            name='group',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='school.Group'),
+            model_name="student",
+            name="group",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="school.Group"
+            ),
         ),
     ]
