@@ -11,13 +11,13 @@
 <body>
 
     <h1>Welcome on school register page</h1>
-    <ul>
-        <li><a href="{%url 'home'%}">Home</a></li>
-        <li><a href="{%url 'students'%}">Students</a></li>
-        <li><a href="{%url 'teachers'%}">Teachers</a></li>
-        <li><a href="{%url 'grades'%}">Grades</a></li>
-        <li><a href="{%url 'groups'%}">Groups</a></li>
-        <li><a href="{%url 'subjects'%}">Subjects</a></li>
+    <ul class="menu">
+        <li class="menu"><a class="menu" href="{%url 'home'%}">Home</a></li>
+        <li class="menu"><a class="menu" href="{%url 'students'%}">Students</a></li>
+        <li class="menu"><a class="menu" href="{%url 'teachers'%}">Teachers</a></li>
+        <li class="menu"><a class="menu" href="{%url 'grades'%}">Grades</a></li>
+        <li class="menu"><a class="menu" href="{%url 'groups'%}">Groups</a></li>
+        <li class="menu"><a class="menu" href="{%url 'subjects'%}">Subjects</a></li>
     </ul>
     {% block content %}
     {% endblock %}
