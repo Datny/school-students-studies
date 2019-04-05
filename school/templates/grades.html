@@ -1,78 +1,40 @@
 {% extends "home.html" %}
-{% load crispy_forms_tags %}
 {% block content %}
-<div class="container">
-    <div>
-        <h4>Grades list</h4>
-    </div>
-    <h5>Add grade:</h5>
-    <form method="POST">
-        {% csrf_token %}
-
-        <div class="row">
-            <div class="col-1">
-                {{ form.grade|as_crispy_field }}
-            </div>
-            <div class="col-3">
-                {{ form.student|as_crispy_field }}
-            </div>
-            <div class="col-3">
-                {{ form.teacher|as_crispy_field }}
-            </div>
-            <div class="col-3">
-                {{ form.subject|as_crispy_field }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-2">
-                {{ form.date|as_crispy_field }}
-            </div>
-            <div class="col-8">
-                {{ form.descritption|as_crispy_field }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-1 text-nowrap">
-                <p>
-                    <h7>* - Field required</h7>
-                </p>
-            </div>
-            <div class="col-9 text-right">
-                <button class="btn btn-outline-success" type="submit">Save</button>
-            </div>
-        </div>
+<div>
+    <h1>Grades list</h1>
 </div>
+<h2>Add grade:</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="save btn btn-default">Save</button>
 </form>
-<br/>
-<div class="container">
-    <div class="row">
-        <div class="col-10">
-            <table>
-                <tr>
-                    <td> Student</td>
-                    <td> Subject</td>
-                    <td> Grade</td>
-                    <td> Teacher</td>
-                    <td> Date</td>
-                    <td> Descritption</td>
-                    <td></td>
-                </tr>
+
+<table>
+    <tr>
+        <td> Student </td>
+        <td> Subject </td>
+        <td> Grade </td>
+        <td> Teacher </td>
+        <td> Date </td>
+        <td> Descritption </td>
+        <td></td>
+    </tr>
 
 
-                {% for grade in grades %}
-                <tr>
-                    <td> {{ grade.student }}</td>
-                    <td> {{ grade.subject }}</td>
-                    <td>{{ grade.grade }}</td>
-                    <td> {{ grade.teacher }}</td>
-                    <td> {{ grade.date }}</td>
-                    <td> {{ grade.descritption }}</td>
-                    <td><a class="btn btn-default" href="{% url 'grade_edit' pk=grade.pk %}">edit</a></td>
+    {% for grade in grades %}
 
+    <tr>
+        <td> {{ grade.student }} </td>
+        <td> {{ grade.subject }} </td>
+        <td>{{ grade.grade }} </td>
+        <td> {{ grade.teacher }} </td>
+        <td> {{ grade.date }} </td>
+        <td> {{ grade.descritption }} </td>
+        <td><a class="btn btn-default" href="{% url 'grade_edit' pk=grade.pk %}">EDIT</a></td>
+    </tr>
 
-                {% endfor %}
-            </table>
-        </div>
-    </div>
-</div>
+    {% endfor %}
+</table>
+
 {% endblock %}

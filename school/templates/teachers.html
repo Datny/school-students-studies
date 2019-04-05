@@ -1,35 +1,14 @@
 {% extends "home.html" %}
-{% load crispy_forms_tags %}
 {% block content %}
-<div class="container">
     <div>
-        <h4>Teachers list</h4>
+        <h1>Teachers list</h1>
     </div>
-    <h5>Add teacher:</h5>
-    <form method="POST">
+    <h2>Add teacher:</h2>
+    <form method="POST" >
         {% csrf_token %}
-        <div class="row">
-            <div class="col-4">
-                {{ form.name|as_crispy_field }}
-            </div>
-            <div class="col-4">
-                {{ form.description|as_crispy_field }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-1 text-nowrap">
-                <p>
-                    <h7>* - Field required</h7>
-                </p>
-            </div>
-            <div class="col-7 text-right">
-                <button class="btn btn-outline-success" type="submit">Save</button>
-            </div>
-        </div>
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
     </form>
-</div>
-<br/>
-<div class="container">
 
     <table>
             <tr>
@@ -46,6 +25,5 @@
             </tr>
             {% endfor %}
         </table>
-</div>
 
 {% endblock %}
