@@ -1,10 +1,26 @@
-{%extends 'home.html'%}
-{%block login%}
+{% extends 'home.html' %}
+
+{% block content %}
+
+{% if error %}
+
+{{ error }}
+{% endif %}
+
 <h1>Login</h1>
-<form acition="." method="post">
-    {{form.as_p}}
-    {%csrf_token%}
-    <p><input type="submit" value="Login"></p>
+
+<form method="POST" action="{% url 'login' %}">
+{% csrf_token %}
+Username:
+<br />
+<input type="text" name="username" />
+<br />
+Password:
+<br />
+<input type="password" name="password" />
+<br />
+<br />
+<input class="btn btn-primary" type="submit" value="Login" />
 </form>
 
 {% endblock %}

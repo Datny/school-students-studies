@@ -13,6 +13,7 @@ urlpatterns = [
     path("<int:pk>/teacher_edit/", views.teacher_edit, name="teacher_edit"),
 
     path("students/", views.students, name="students"),
+
     path("<int:pk>/student_edit/", views.student_edit, name="student_edit"),
 
     path("grades/", views.grades, name="grades"),
@@ -24,6 +25,11 @@ urlpatterns = [
     path("subjects/", views.subjects, name="subjects"),
     path("<int:pk>/subject_edit/", views.subject_edit, name="subject_edit"),
     
+
+    path("grades/", views.grades, name="grades"),
+    path("groups/", views.groups, name="groups"),
+    path("subjects/", views.subjects, name="subjects"),
+    path("account/", include("account.urls")),
     re_path(r"^account/", include("account.urls")),
 ]
 

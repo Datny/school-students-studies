@@ -3,11 +3,17 @@ from django import forms
 from django.views.generic.edit import UpdateView
 from .models import Teacher, Student, Grade, Group, Subject
 from .forms import TeacherForm, StudentForm, GradeForm, GroupForm, SubjectForm
+from django.contrib.auth.decorators import login_required
 
+
+
+
+@login_required(login_url=("/account/login"))
 def home(request):
     return render(request, "home.html")
 
 
+@login_required(login_url=("/account/login"))
 def teachers(request):
     teachers = Teacher.objects.order_by("name")
 
@@ -33,6 +39,7 @@ def teacher_edit(request,pk):
         form = TeacherForm(instance=teacher)
     return render(request, "teachers.html", {"form": form, "teachers": teachers})
 
+@login_required(login_url=("/account/login"))
 def students(request):
     students = Student.objects.order_by("group", "name")
     
@@ -54,14 +61,14 @@ def student_edit(request,pk):
         if form.is_valid():
             form.save()
             return redirect("students")
-    else: 
+    else:
         form = StudentForm(instance=student)
     return render(request, "students.html", {"form": form, "students": students})
 
 
+@login_required(login_url=("/account/login"))
 def grades(request):
     grades = Grade.objects.order_by("grade")
-    
 
     if request.method == "POST":
         form = GradeForm(request.POST)
@@ -71,6 +78,7 @@ def grades(request):
     else:
         form = GradeForm()
     return render(request, "grades.html", {"form": form, "grades": grades})
+
 
 def grade_edit(request,pk):
     grade = get_object_or_404(Grade, pk=pk)
@@ -85,10 +93,10 @@ def grade_edit(request,pk):
         form = GradeForm(instance=grade)
     return render(request, "grades.html", {"form": form, "grades": grades})
 
-
+@login_required(login_url=("/account/login"))
 def groups(request):
     groups = Group.objects.order_by("name")
-    
+
     if request.method == "POST":
         form = GroupForm(request.POST)
         if form.is_valid():
@@ -111,10 +119,9 @@ def group_edit(request,pk):
         form = GroupForm(instance=group)
     return render(request, "groups.html", {"form": form, "groups": groups})
 
-
+@login_required(login_url=("/account/login"))
 def subjects(request):
     subjects = Subject.objects.order_by("name")
-    
     if request.method == "POST":
         form = SubjectForm(request.POST)
         if form.is_valid():
@@ -123,7 +130,6 @@ def subjects(request):
     else:
         form = SubjectForm()
     return render(request, "subjects.html", {"form": form, "subjects": subjects})
-
 def subject_edit(request,pk):
     subject = get_object_or_404(Subject, pk=pk)
     subjects = Subject.objects.order_by("name")
@@ -135,4 +141,4 @@ def subject_edit(request,pk):
             return redirect ("subjects")
     else:
         form = SubjectForm(instance=subject)
-    return render(request, "subjects.html", {"form": form, "subjects": subjects})    
+    return render(request, "subjects.html", {"form": form, "subjects": subjects})

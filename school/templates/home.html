@@ -23,12 +23,22 @@
                 <a class="nav-item nav-link" href="{%url 'grades'%}">Grades</a>
                 <a class="nav-item nav-link" href="{%url 'groups'%}">Groups</a>
                 <a class="nav-item nav-link" href="{%url 'subjects'%}">Subjects</a>
+                        {% if user.is_authenticated %}
+        <li><a href="{%url 'logout'%}">Logout</a></li>
+        <form id="logout" method="POST" action="{%url 'logout'%}">
+            {% csrf_token %}
+            <input type="hidden" />
+        </form>
+        {% else %}
+        <li><a href="{%url 'signup'%}">Sign Up</a></li>
+        <li><a href="{%url 'login'%}">Login</a></li>
+        {% endif %}
+    </ul>
 
             </div>
         </div>
     </nav>
 </div>
-
 
 {% block content %}
 {% endblock %}
