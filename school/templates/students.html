@@ -3,7 +3,7 @@
     <div>
         <h1>Students list</h1>
     </div>
-    <h1>Add Student:</h1>
+    <h2>Add Student:</h2>
     <form method="POST" >
         {% csrf_token %}
         {{ form.as_p }}
@@ -15,12 +15,14 @@
             <td>Student</td>
             <td>Group</td>
             <td>Subjects</td>
+            <td></td>
         </tr>
         {% for student in students %}
         <tr>
             <td> {{student.name}}</td>
             <td> {{student.group}}</td>
             <td> {{student.get_subjects}}</td>
+            <td><a class="btn btn-default" href="{% url 'student_edit' pk=student.pk %}">EDIT</a></td>
         </tr>
         {% endfor %}
     </table>

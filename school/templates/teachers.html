@@ -3,7 +3,7 @@
     <div>
         <h1>Teachers list</h1>
     </div>
-    <h1>Add teacher:</h1>
+    <h2>Add teacher:</h2>
     <form method="POST" >
         {% csrf_token %}
         {{ form.as_p }}
@@ -14,11 +14,13 @@
             <tr>
                 <td>Teacher</td>
                 <td>Description</td>
+                <td></td>
             </tr>
             {% for teacher in teachers %}
             <tr>
                 <td> {{teacher.name}}</td>
                 <td> {{teacher.description}}</td>
+                <td><a class="btn btn-default" href="{% url 'teacher_edit' pk=teacher.pk %}">EDIT</a></td>
                 
             </tr>
             {% endfor %}

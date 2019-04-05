@@ -15,13 +15,14 @@
                 <td>Name</td>
                 <td>Teacher</td>
                 <td>Group</td>
+                <td></td>
             </tr>
             {% for subject in subjects %}
             <tr>
                 <td> {{subject.name}}</td>
                 <td> {{subject.teacher}}</td>
                 <td> {{subject.group}}</td>
-                
+                <td><a class="btn btn-default" href="{% url 'subject_edit' pk=subject.pk %}">EDIT</a></td>
             </tr>
             {% endfor %}
         </table>

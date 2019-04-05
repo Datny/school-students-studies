@@ -7,7 +7,7 @@ class StudentForm(forms.ModelForm):
         model = Student
         fields = ("name", "group", "subjects")
 
-class AddTeacherForm(forms.ModelForm):
+class TeacherForm(forms.ModelForm):
     class Meta:
         model = Teacher
         fields = ("name", "description")
