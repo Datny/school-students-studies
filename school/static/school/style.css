@@ -1,0 +1,243 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
+
+body {
+  font-family: "Roboto", helvetica, arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+}
+
+div.table-title {
+   display: block;
+  margin: auto;
+  max-width: 600px;
+  padding:5px;
+  width: 100%;
+}
+
+.table-title h3 {
+   color: #fafafa;
+   font-size: 30px;
+   font-weight: 400;
+   font-style:normal;
+   font-family: "Roboto", helvetica, arial, sans-serif;
+   text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+   text-transform:uppercase;
+}
+
+
+/*** Table Styles **/
+
+.table-fill {
+  background: white;
+  border-radius:3px;
+  border-collapse: collapse;
+  height: 320px;
+  margin: auto;
+  max-width: 600px;
+  padding:5px;
+  width: 100%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  animation: float 5s infinite;
+}
+
+th {
+  color:#D5DDE5;;
+  background:#1b1e24;
+  border-bottom:4px solid #9ea7af;
+  border-right: 1px solid #343a45;
+  font-size:23px;
+  font-weight: 100;
+  padding:24px;
+  text-align:left;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  vertical-align:middle;
+}
+
+th:first-child {
+  border-top-left-radius:3px;
+}
+
+th:last-child {
+  border-top-right-radius:3px;
+  border-right:none;
+}
+
+tr {
+  border-top: 1px solid #C1C3D1;
+  border-bottom-: 1px solid #C1C3D1;
+  color:#666B85;
+  font-size:16px;
+  font-weight:normal;
+  text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+}
+
+tr:hover td {
+  background:#4E5066;
+  color:#FFFFFF;
+  border-top: 1px solid #22262e;
+}
+
+tr:first-child {
+  border-top:none;
+}
+
+tr:last-child {
+  border-bottom:none;
+}
+
+tr:nth-child(odd) td {
+  background:#EBEBEB;
+}
+
+tr:nth-child(odd):hover td {
+  background:#4E5066;
+}
+
+tr:last-child td:first-child {
+  border-bottom-left-radius:3px;
+}
+
+tr:last-child td:last-child {
+  border-bottom-right-radius:3px;
+}
+
+td {
+  background:#FFFFFF;
+  padding:20px;
+  text-align:left;
+  vertical-align:middle;
+  font-weight:300;
+  font-size:18px;
+  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid #C1C3D1;
+}
+
+td:last-child {
+  border-right: 0px;
+}
+
+th.text-left {
+  text-align: left;
+}
+
+th.text-center {
+  text-align: center;
+}
+
+th.text-right {
+  text-align: right;
+}
+
+td.text-left {
+  text-align: left;
+}
+
+td.text-center {
+  text-align: center;
+}
+
+td.text-right {
+  text-align: right;
+}
+
+
+ul.menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li.menu {
+  float: left;
+}
+
+li a.menu  {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover.menu {
+  background-color: #111;
+}
+
+form {
+  display: block;
+  margin: 30px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e4e4e4;
+  border-radius: 5px;
+  font-size: 0;
+}
+
+form &gt; div &gt; label {
+  display: block;
+  padding: 20px 20px 10px;
+  vertical-align: top;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #939393;
+  cursor: pointer;
+}
+form &gt; div.switch &gt; label {
+  padding: 16px 20px 13px;
+}
+
+.col-2, .col-3, .col-4 {
+  border-bottom: 1px solid #e4e4e4;
+}
+
+form &gt; div &gt; .col-4 {
+  height: 86px;
+}
+
+label &gt; input {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: 27px;
+  line-height: 27px;
+  margin: 5px -5px 0;
+  padding: 7px 5px 3px;
+  border: none;
+  outline: none;
+  color: #555;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  opacity: .6;
+  transition: all linear .3s;
+}
+
+.col-submit {
+  text-align: center;
+  padding: 20px;
+}
+
+label &gt; select {
+  display: block;
+  width: 100%;
+  padding: 0;
+  color: #555;
+  margin: 16px 0 6px;
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  opacity: .4;
+  transition: all linear .3s;
+}
+
+label &gt; input:focus, label &gt; select:focus {
+  opacity: 1;
+}

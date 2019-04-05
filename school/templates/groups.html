@@ -1,15 +1,39 @@
 {% extends "home.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
+<div class="container">
     <div>
-        <h1>Groups list</h1>
+        <h4>Groups list</h4>
     </div>
-    <h2>Add group:</h2>
+    <h5>Add group:</h5>
     <form method="POST" >
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
-    </form>
+           <div class="row">
+            <div class="col-4">
+                {{ form.name|as_crispy_field }}
+            </div>
+            <div class="col-4">
+                {{ form.teachers|as_crispy_field }}
+            </div>
+            <div class="col-2">
+                {{ form.create_date|as_crispy_field }}
+            </div>
 
+        </div>
+         <div class="row">
+            <div class="col-1 text-nowrap">
+                <p>
+                    <h7>* - Field required</h7>
+                </p>
+            </div>
+            <div class="col-9 text-right">
+                <button class="btn btn-outline-success" type="submit">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+<br/>
+<div class="container">
     <table>
             <tr>
                 <td>Name</td>
@@ -23,8 +47,9 @@
                 <td> {{group.get_teachers}}</td>
                 <td> {{group.create_date}}</td>
                 <td><a class="btn btn-default" href="{% url 'group_edit' pk=group.pk %}">EDIT</a></td>
+
             </tr>
             {% endfor %}
         </table>
-
+</div>
 {% endblock %}
