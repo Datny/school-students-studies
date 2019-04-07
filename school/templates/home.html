@@ -17,21 +17,21 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="{%url 'home'%}">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link " href="{%url 'home'%}">Home <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" href="{%url 'students'%}">Students</a>
                 <a class="nav-item nav-link" href="{%url 'teachers'%}">Teachers</a>
                 <a class="nav-item nav-link" href="{%url 'grades'%}">Grades</a>
                 <a class="nav-item nav-link" href="{%url 'groups'%}">Groups</a>
                 <a class="nav-item nav-link" href="{%url 'subjects'%}">Subjects</a>
                         {% if user.is_authenticated %}
-        <li><a href="{%url 'logout'%}">Logout</a></li>
+        <li><a class="nav-item nav-link" href="{%url 'logout'%}">Logout</a></li>
         <form id="logout" method="POST" action="{%url 'logout'%}">
             {% csrf_token %}
             <input type="hidden" />
         </form>
         {% else %}
-        <li><a href="{%url 'signup'%}">Sign Up</a></li>
-        <li><a href="{%url 'login'%}">Login</a></li>
+        <li><a class="nav-item nav-link" href="{%url 'signup'%}">Sign Up</a></li>
+        <li><a class="nav-item nav-link"href="{%url 'login'%}">Login</a></li>
         {% endif %}
     </ul>
 
