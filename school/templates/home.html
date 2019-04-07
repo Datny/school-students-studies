@@ -25,11 +25,11 @@
 
 
                 {% if user.is_authenticated %}
-                <a class="nav-item nav-link {% active 'students' %}" href="{%url 'students'%}">Students</a>
-                <a class="nav-item nav-link {% active 'teachers' %}" href="{%url 'teachers'%}">Teachers</a>
-                <a class="nav-item nav-link {% active 'grades' %}" href="{%url 'grades'%}">Grades</a>
-                <a class="nav-item nav-link {% active 'groups' %}" href="{%url 'groups'%}">Groups</a>
-                <a class="nav-item nav-link {% active 'subjects' %}" href="{%url 'subjects'%}">Subjects</a>
+                <a class="nav-item nav-link {% active 'studen' %}" href="{%url 'students'%}">Students</a>
+                <a class="nav-item nav-link {% active 'teacher' %}" href="{%url 'teachers'%}">Teachers</a>
+                <a class="nav-item nav-link {% active 'grade' %}" href="{%url 'grades'%}">Grades</a>
+                <a class="nav-item nav-link {% active 'group' %}" href="{%url 'groups'%}">Groups</a>
+                <a class="nav-item nav-link {% active 'subject' %}" href="{%url 'subjects'%}">Subjects</a>
             </div>
 
                 <a class="nav-link nav-item" href="{%url 'logout'%}">Logout</a>
