@@ -1,26 +1,28 @@
 {% extends 'home.html' %}
-
 {% block content %}
 
-{% if error %}
 
-{{ error }}
-{% endif %}
+            {% if error %}
 
-<h1>Login</h1>
+            {{ error }}
+            {% endif %}
 
-<form method="POST" action="{% url 'login' %}">
-{% csrf_token %}
-Username:
-<br />
-<input type="text" name="username" />
-<br />
-Password:
-<br />
-<input type="password" name="password" />
-<br />
-<br />
-<input class="btn btn-primary" type="submit" value="Login" />
-</form>
+            <h1>Login</h1>
+            <br/>
 
-{% endblock %}
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                Username:
+                <br/>
+                <input type="text" name="username"/>
+                <br/>
+                Password:
+                <br/>
+                <input type="password" name="password"/>
+                <br/>
+                <br/>
+                <input class="btn btn-primary" type="submit" value="Login"/>
+            </form>
+
+
+           {% endblock %}

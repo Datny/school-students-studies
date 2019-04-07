@@ -12,37 +12,44 @@
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{%url 'home'%}"><h3>School Register</h3></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link " href="{%url 'home'%}">Home <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="{%url 'students'%}">Students</a>
+
+                {% if user.is_authenticated %}
+
+
+                <a class="nav-item nav-link " href="{%url 'students'%}">Students</a>
                 <a class="nav-item nav-link" href="{%url 'teachers'%}">Teachers</a>
                 <a class="nav-item nav-link" href="{%url 'grades'%}">Grades</a>
                 <a class="nav-item nav-link" href="{%url 'groups'%}">Groups</a>
                 <a class="nav-item nav-link" href="{%url 'subjects'%}">Subjects</a>
-                        {% if user.is_authenticated %}
-        <li><a class="nav-item nav-link" href="{%url 'logout'%}">Logout</a></li>
-        <form id="logout" method="POST" action="{%url 'logout'%}">
-            {% csrf_token %}
-            <input type="hidden" />
-        </form>
-        {% else %}
-        <li><a class="nav-item nav-link" href="{%url 'signup'%}">Sign Up</a></li>
-        <li><a class="nav-item nav-link"href="{%url 'login'%}">Login</a></li>
-        {% endif %}
-    </ul>
+
+
+                <a class="nav-link" href="{%url 'logout'%}">Logout</a>
+                    <form id="logout" method="POST" action="{%url 'logout'%}">
+                        {% csrf_token %}
+                        <input type="hidden"/>
+                    </form>
+                    {% else %}
+                    <a class="nav-item nav-link" href="{%url 'signup'%}">Sign Up</a>
+                    <a class="nav-item nav-link" href="{%url 'login'%}">Login</a>
+                    {% endif %}
 
             </div>
+
         </div>
     </nav>
 </div>
 
-{% block content %}
-{% endblock %}
-
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
