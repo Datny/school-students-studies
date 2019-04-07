@@ -32,14 +32,17 @@
 </div>
 <br/>
 <div class="container">
-    <table>
+            <table class="table table-bordered table-hover table-sm">
+            <thead>
             <tr>
                 <td>Name</td>
                 <td>Teacher</td>
                 <td>Create date</td>
                 <td></td>
             </tr>
+            </thead>
             {% for group in groups %}
+                <tbody>
             <tr>
                 <td> {{group.name}}</td>
                 <td> {{group.get_teachers}}</td>
@@ -48,6 +51,7 @@
 
             </tr>
             {% endfor %}
+                </tbody>
         </table>
 </div>
 {% endblock %}
