@@ -2,9 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container">
-    <div>
-        <h4>Grades list</h4>
-    </div>
+
     <h5>Add grade:</h5>
     <form method="POST">
         {% csrf_token %}
@@ -45,34 +43,34 @@
 </form>
 <br/>
 <div class="container">
-    <div class="row">
-        <div class="col-10">
-            <table>
+            <table class="table table-bordered table-hover table-sm">
+    <thead>
                 <tr>
-                    <td> Student</td>
-                    <td> Subject</td>
-                    <td> Grade</td>
-                    <td> Teacher</td>
-                    <td> Date</td>
-                    <td> Descritption</td>
-                    <td></td>
+                    <td > Student</td>
+                    <td > Subject</td>
+                    <td > Grade</td>
+                    <td > Teacher</td>
+                    <td > Date</td>
+                    <td > Descritption</td>
+                    <td ></td>
                 </tr>
 
-
+        </thead>
                 {% for grade in grades %}
+                <tbody>
                 <tr>
+
                     <td> {{ grade.student }}</td>
                     <td> {{ grade.subject }}</td>
                     <td>{{ grade.grade }}</td>
                     <td> {{ grade.teacher }}</td>
                     <td> {{ grade.date }}</td>
                     <td> {{ grade.descritption }}</td>
-                    <td><a class="btn btn-default" href="{% url 'grade_edit' pk=grade.pk %}">edit</a></td>
+                    <td><a class="btn btn-default" href="{% url 'grade_edit' pk=grade.pk %}">EDIT</a></td>
 
 
                 {% endfor %}
+                </tbody>
             </table>
-        </div>
-    </div>
 </div>
 {% endblock %}

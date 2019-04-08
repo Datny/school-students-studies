@@ -2,9 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container">
-    <div>
-        <h4>Teachers list</h4>
-    </div>
+
     <h5>Add teacher:</h5>
     <form method="POST">
         {% csrf_token %}
@@ -31,12 +29,15 @@
 <br/>
 <div class="container">
 
-    <table>
+            <table class="table table-bordered table-hover table-sm">
+                <thead>
             <tr>
                 <td>Teacher</td>
                 <td>Description</td>
                 <td></td>
             </tr>
+            </thead>
+                <tbody>
             {% for teacher in teachers %}
             <tr>
                 <td> {{teacher.name}}</td>
@@ -44,6 +45,7 @@
                 <td><a class="btn btn-default" href="{% url 'teacher_edit' pk=teacher.pk %}">EDIT</a></td>
                 
             </tr>
+            </tbody>
             {% endfor %}
         </table>
 </div>
