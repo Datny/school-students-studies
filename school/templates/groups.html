@@ -2,9 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container">
-    <div>
-        <h4>Groups list</h4>
-    </div>
+
     <h5>Add group:</h5>
     <form method="POST" >
         {% csrf_token %}
@@ -34,14 +32,17 @@
 </div>
 <br/>
 <div class="container">
-    <table>
+            <table class="table table-bordered table-hover table-sm">
+            <thead>
             <tr>
                 <td>Name</td>
                 <td>Teacher</td>
                 <td>Create date</td>
                 <td></td>
             </tr>
+            </thead>
             {% for group in groups %}
+                <tbody>
             <tr>
                 <td> {{group.name}}</td>
                 <td> {{group.get_teachers}}</td>
@@ -50,6 +51,7 @@
 
             </tr>
             {% endfor %}
+                </tbody>
         </table>
 </div>
 {% endblock %}
