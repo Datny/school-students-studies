@@ -77,12 +77,7 @@ def invite(request):
                 except BadHeaderError:
                     return HttpResponse('Invalid header found.')
                 return render(request, 'account/invite.html', {'msg': msg})
-            else:
-                # In reality we'd use a form class
-                # to get proper validation errors.
-                return HttpResponse('Make sure all fields are entered and valid.')
             return render(request, 'account/invite.html', {'msg': msg})
     else:
         form = InviteForm()
-
     return render(request, 'account/invite.html', {'form': form})
