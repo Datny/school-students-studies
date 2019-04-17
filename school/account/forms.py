@@ -11,5 +11,3 @@ class InviteForm(forms.ModelForm):
     class Meta:
         model = Invite
         fields = ('email',)
-
-

@@ -4,6 +4,10 @@ from django.contrib.auth import authenticate, login
 from .forms import LoginForm, InviteForm
 from django.contrib.auth.models import User
 from django.contrib import auth
+from .models import Invite
+from django.core.mail import BadHeaderError, send_mail
+from django.http import HttpResponse, HttpResponseRedirect
+
 
 def user_login(request):
     if request.method == "POST":
@@ -32,7 +36,7 @@ def signup(request):
                 return render(request, 'account/signup.html', {'error': 'Username has already been taken'})
             except User.DoesNotExist:
                 user = User.objects.create_user(request.POST["username"], password=request.POST['password1'])
-                auth.login(request,user)
+                auth.login(request, user)
                 return redirect('home')
         else:
             return render(request, 'account/signup.html', {'error': 'Passwords must match'})
@@ -47,7 +51,7 @@ def login(request):
             auth.login(request, user)
             return redirect('home')
         else:
-            return render(request, 'account/login.html',{'error':'username or password is incorrect.'})
+            return render(request, 'account/login.html', {'error': 'username or password is incorrect.'})
     else:
         return render(request, 'account/login.html')
 
@@ -58,7 +62,27 @@ def logout(request):
 
 
 def invite(request):
-    form = InviteForm()
+    if request.method == "POST":
+        form = InviteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            last_email = Invite.objects.latest('email')
+            msg = "Invitation has been sent to: " + str(last_email)
+            subject = request.POST.get('subject', 'Registration link for school')
+            message = request.POST.get('message', 'HERE WILL BE LINK TO REGISTRATION')
+            from_email = request.POST.get('from_email', 'sqlacc@registration.com')
+            if subject and message and from_email:
+                try:
+                    send_mail(subject, message, from_email, [last_email])
+                except BadHeaderError:
+                    return HttpResponse('Invalid header found.')
+                return render(request, 'account/invite.html', {'msg': msg})
+            else:
+                # In reality we'd use a form class
+                # to get proper validation errors.
+                return HttpResponse('Make sure all fields are entered and valid.')
+            return render(request, 'account/invite.html', {'msg': msg})
+    else:
+        form = InviteForm()
+
     return render(request, 'account/invite.html', {'form': form})
-
-
