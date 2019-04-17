@@ -7,7 +7,9 @@ class LoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
 
 
-class InviteForm(forms.Form):
+class InviteForm(forms.ModelForm):
     class Meta:
         model = Invite
         fields = ('email',)
+
+

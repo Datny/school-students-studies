@@ -1,11 +1,14 @@
 {% extends 'home.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
+<div class="container">
 
     <h5>Send Email with unique link for registration</h5>
     <form method="POST" >
         {% csrf_token %}
         {{ form }}
-        <button type="submit" class="save btn btn-default">Save</button>
+         <button class="btn btn-outline-success" type="submit">Send</button>
     </form>
+
+<div class="container">
 {% endblock %}
