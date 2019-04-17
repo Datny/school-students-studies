@@ -1,3 +1,9 @@
 from django.contrib import admin
+from .models import Invite
 
-# Register your models here.
+
+class InviteAdmin(admin.ModelAdmin):
+    list_display = ['email', 'sent_date']
+
+
+admin.site.register(Invite, InviteAdmin)

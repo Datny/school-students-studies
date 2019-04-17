@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import HttpResponse
 from django.contrib.auth import authenticate, login
-from .forms import LoginForm
+from .forms import LoginForm, InviteForm
 from django.contrib.auth.models import User
 from django.contrib import auth
 
@@ -55,3 +55,10 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return render(request, 'account/login.html')
+
+
+def invite(request):
+    form = InviteForm()
+    return render(request, 'account/invite.html', {'form': form})
+
+
