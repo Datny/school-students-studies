@@ -42,7 +42,7 @@ def teacher_edit(request,pk):
 @login_required(login_url=("/account/login"))
 def students(request):
     students = Student.objects.order_by("group", "name")
-    
+
     if request.method == "POST":
         form = StudentForm(request.POST)
         if form.is_valid():
@@ -142,3 +142,7 @@ def subject_edit(request,pk):
     else:
         form = SubjectForm(instance=subject)
     return render(request, "subjects.html", {"form": form, "subjects": subjects})
+
+def show_group(request,pk):
+    students = Student.objects.filter(group__id=pk)
+    return render(request, "group.html", {"students": students})

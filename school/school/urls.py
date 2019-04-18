@@ -25,10 +25,8 @@ urlpatterns = [
     path("subjects/", views.subjects, name="subjects"),
     path("<int:pk>/subject_edit/", views.subject_edit, name="subject_edit"),
     
+    path("<int:pk>/group/", views.show_group, name="show_group"),
 
-    path("grades/", views.grades, name="grades"),
-    path("groups/", views.groups, name="groups"),
-    path("subjects/", views.subjects, name="subjects"),
     path("account/", include("account.urls")),
     re_path(r"^account/", include("account.urls")),
 ]
