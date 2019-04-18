@@ -144,5 +144,6 @@ def subject_edit(request,pk):
     return render(request, "subjects.html", {"form": form, "subjects": subjects})
 
 def show_group(request,pk):
+    group = get_object_or_404(Group, pk=pk)
     students = Student.objects.filter(group__id=pk)
-    return render(request, "group.html", {"students": students})
+    return render(request, "group.html", {"group": group, "students": students})
