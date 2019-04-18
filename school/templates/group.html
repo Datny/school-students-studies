@@ -8,13 +8,13 @@
     <table class="table table-bordered table-hover table-sm mt-3">
 
         <tbody>
-        {% for student in students %}
-        <tr>
-            <td> {{ forloop.counter }}</td>
-            <td> {{ student.name }}</td>
-        </tr>
-        <tbody>
-        {% endfor %}
+            {% for student in students %}
+            <tr>
+                <td> {{ forloop.counter }}</td>
+                <td> {{ student.name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
 
 </div>
