@@ -9,11 +9,7 @@ class Invite(models.Model):
 
 #reg_token_valid will be set to True, after account creation or/if few days pass by
 
-#token is hash generated for each email for registration purposes
-
-
-
-
+#token is  generated for each email for registration purposes
 
     def __str__(self):
         return self.email
