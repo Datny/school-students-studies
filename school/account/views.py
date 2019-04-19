@@ -7,6 +7,9 @@ from django.contrib import auth
 from .models import Invite
 from django.core.mail import BadHeaderError, send_mail
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth import login
+from django.utils.crypto import get_random_string
+
 
 
 def user_login(request):
@@ -61,16 +64,19 @@ def logout(request):
     return render(request, 'account/login.html')
 
 
+
+
 def invite(request):
     if request.method == "POST":
         form = InviteForm(request.POST)
         if form.is_valid():
-            form.save()
+            reg_token = get_random_string(length=12)
             last_email = Invite.objects.latest('email')
             msg = "Invitation has been sent to: " + str(last_email)
             subject = request.POST.get('subject', 'Registration link for school')
-            message = request.POST.get('message', 'HERE WILL BE LINK TO REGISTRATION')
+            message = request.POST.get('message', reg_token)
             from_email = request.POST.get('from_email', 'sqlacc@registration.com')
+            form.save()
             if subject and message and from_email:
                 try:
                     send_mail(subject, message, from_email, [last_email])
@@ -81,3 +87,5 @@ def invite(request):
     else:
         form = InviteForm()
     return render(request, 'account/invite.html', {'form': form})
+
+
