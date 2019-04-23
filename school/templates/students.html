@@ -48,7 +48,7 @@
                  <tbody>
         {% for student in students %}
         <tr>
-            <td> {{student.name}}</td>
+            <td> <a href="{% url 'students_grades' pk=student.pk %}"> {{student.name}}</a></td>
             <td> {{student.group}}</td>
             <td> {{student.get_subjects}}</td>
             <td><a class="btn btn-default" href="{% url 'student_edit' pk=student.pk %}">EDIT</a></td>
