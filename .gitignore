@@ -104,6 +104,8 @@ venv.bak/
 .mypy_cache/
 
 ./idea/
+.idea
+.vscode
 
 #ignoring datebase files
 db.sqlite3
