@@ -72,16 +72,16 @@ def invite(request):
     if request.method == "POST" and 'send' in request.POST:
         form = InviteForm(request.POST)
         if form.is_valid():
-            invite = form.save(commit=False)
-            reg_token = get_random_string(length=12)
-            invite.reg_token = reg_token
 
+            reg_token = get_random_string(length=12)
+            form.reg_token = reg_token
+            form.save()
             last_email = Invite.objects.latest('email')
             msg = "Invitation has been sent to: " + str(last_email)
             subject = request.POST.get('subject', 'Registration link for school')
             message = request.POST.get('message', reg_token)
             from_email = request.POST.get('from_email', 'sqlacc@registration.com')
-            invite.save()
+
             if subject and message and from_email:
                 try:
                     send_mail(subject, message, from_email, [last_email])
@@ -95,13 +95,13 @@ def invite(request):
 
 
 def email_invitations(request):
-    prompt = {"order":"Order of CSV file should be : name,surname, email adress"}
+    prompt = {"order": "Order of CSV file should be : name,surname, email adress"}
     if request.method == "POST" and 'upload' in request.POST:
         csv_file = request.FILES['file']
         if not csv_file.name.endwith(".csv"):
             messages.error(request, "This is not .csv file")
         data_set = csv_file.read().decode("UTF-8")
-        io_string =  io.StringIO(data_set)
+        io_string = io.StringIO(data_set)
         next(io_string)
         for column in csv.reader(io_string, delimiter=",", quotechar="|"):
             _, created = CsvFile.objects.update_or_create(
@@ -111,7 +111,6 @@ def email_invitations(request):
             )
         context = {}
         return render(request, 'account/invite.html', context)
-
 
     else:
         return render(request, 'account/invite.html', prompt)

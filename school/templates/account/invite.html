@@ -12,11 +12,16 @@
     </form>
     <br/>
     <h5>Upload .CSV file with emails for registration</h5>
+    {{order}}
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="file" accept=".csv"/>
+        <input type="file" name="file" accept=".csv"/>
         <button class="btn btn-outline-success"  name="upload" type="submit">Upload</button>
-
+    {% if messages %}
+        {%for message in messages%}
+            {{message|safe}}
+        {%endfor%}
+    {% endif %}
     </form>
 </div>
 {% endblock %}
