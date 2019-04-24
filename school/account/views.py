@@ -70,9 +70,9 @@ def logout(request):
 
 def invite(request):
     if request.method == "POST" and 'send' in request.POST:
+        print("Im here! in single inv")
         form = InviteForm(request.POST)
         if form.is_valid():
-
             reg_token = get_random_string(length=12)
             form.reg_token = reg_token
             form.save()
@@ -97,7 +97,9 @@ def invite(request):
 def email_invitations(request):
     prompt = {"order": "Order of CSV file should be : name,surname, email adress"}
     if request.method == "POST" and 'upload' in request.POST:
+        print("Im here!")
         csv_file = request.FILES['file']
+        print(type(csv_file))
         if not csv_file.name.endwith(".csv"):
             messages.error(request, "This is not .csv file")
         data_set = csv_file.read().decode("UTF-8")
