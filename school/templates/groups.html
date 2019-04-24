@@ -44,6 +44,7 @@
             {% for group in groups %}
                 <tbody>
             <tr>
+                <td> <a href="{% url 'show_group' pk=group.pk %}">{{group.name}}</a> </td>
                 <td> {{group.name}}</td>
                 <td> {{group.get_teachers}}</td>
                 <td> {{group.create_date}}</td>
