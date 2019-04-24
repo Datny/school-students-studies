@@ -48,7 +48,6 @@
                     <input type="hidden"/>
                 </form>
                 {% else %}
-                <a class="nav-item nav-link {% active 'signup' %}" href="{%url 'signup'%}">Sign Up</a>
                 <a class="nav-item nav-link {% active 'login' %}" href="{%url 'login'%}">Login</a>
                 {% endif %}
           {% for url in urls.urlpatterns %}
