@@ -136,6 +136,16 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 INTERNAL_IPS = ['127.0.0.1']
 
 
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_HOST_USER = "postmaster@sandbox5da0b7d4866d4b31bd0229d525cc3cd6.mailgun.org"
+EMAIL_HOST_PASSWORD = "40bff6b2def1b9353c742f126282d145-3fb021d1-3c054b60"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+
+
+
 try:
     from .local_settings import *
 except ImportError:
