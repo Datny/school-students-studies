@@ -1,10 +1,12 @@
+import csv, io
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.shortcuts import HttpResponse
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm, InviteForm
 from django.contrib.auth.models import User
 from django.contrib import auth
-from .models import Invite
+from .models import Invite, CsvFile
 from django.core.mail import BadHeaderError, send_mail
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import login
@@ -67,7 +69,7 @@ def logout(request):
 
 
 def invite(request):
-    if request.method == "POST":
+    if request.method == "POST" and 'send' in request.POST:
         form = InviteForm(request.POST)
         if form.is_valid():
             invite = form.save(commit=False)
@@ -92,3 +94,24 @@ def invite(request):
     return render(request, 'account/invite.html', {'form': form})
 
 
+def email_invitations(request):
+    prompt = {"order":"Order of CSV file should be : name,surname, email adress"}
+    if request.method == "POST" and 'upload' in request.POST:
+        csv_file = request.FILES['file']
+        if not csv_file.name.endwith(".csv"):
+            messages.error(request, "This is not .csv file")
+        data_set = csv_file.read().decode("UTF-8")
+        io_string =  io.StringIO(data_set)
+        next(io_string)
+        for column in csv.reader(io_string, delimiter=",", quotechar="|"):
+            _, created = CsvFile.objects.update_or_create(
+                first_name=column[0],
+                last_name=column[1],
+                email=column[2],
+            )
+        context = {}
+        return render(request, 'account/invite.html', context)
+
+
+    else:
+        return render(request, 'account/invite.html', prompt)
