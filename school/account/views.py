@@ -100,7 +100,7 @@ def email_invitations(request):
         print("Im here!")
         csv_file = request.FILES['file']
         print(type(csv_file))
-        if not csv_file.name.endwith(".csv"):
+        if not csv_file.name.endswith(".csv"):
             messages.error(request, "This is not .csv file")
         data_set = csv_file.read().decode("UTF-8")
         io_string = io.StringIO(data_set)
