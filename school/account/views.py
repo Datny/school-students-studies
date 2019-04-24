@@ -1,9 +1,18 @@
+import csv, io
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.shortcuts import HttpResponse
 from django.contrib.auth import authenticate, login
-from .forms import LoginForm
+from .forms import LoginForm, InviteForm
 from django.contrib.auth.models import User
 from django.contrib import auth
+from .models import Invite, CsvFile
+from django.core.mail import BadHeaderError, send_mail
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth import login
+from django.utils.crypto import get_random_string
+
+
 
 def user_login(request):
     if request.method == "POST":
@@ -32,7 +41,7 @@ def signup(request):
                 return render(request, 'account/signup.html', {'error': 'Username has already been taken'})
             except User.DoesNotExist:
                 user = User.objects.create_user(request.POST["username"], password=request.POST['password1'])
-                auth.login(request,user)
+                auth.login(request, user)
                 return redirect('home')
         else:
             return render(request, 'account/signup.html', {'error': 'Passwords must match'})
@@ -47,7 +56,7 @@ def login(request):
             auth.login(request, user)
             return redirect('home')
         else:
-            return render(request, 'account/login.html',{'error':'username or password is incorrect.'})
+            return render(request, 'account/login.html', {'error': 'username or password is incorrect.'})
     else:
         return render(request, 'account/login.html')
 
@@ -55,3 +64,55 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return render(request, 'account/login.html')
+
+
+
+
+def invite(request):
+    if request.method == "POST" and 'send' in request.POST:
+        print("Im here! in single inv")
+        form = InviteForm(request.POST)
+        if form.is_valid():
+            reg_token = get_random_string(length=12)
+            form.reg_token = reg_token
+            form.save()
+            last_email = Invite.objects.latest('email')
+            msg = "Invitation has been sent to: " + str(last_email)
+            subject = request.POST.get('subject', 'Registration link for school')
+            message = request.POST.get('message', reg_token)
+            from_email = request.POST.get('from_email', 'sqlacc@registration.com')
+
+            if subject and message and from_email:
+                try:
+                    send_mail(subject, message, from_email, [last_email])
+                except BadHeaderError:
+                    return HttpResponse('Invalid header found.')
+                return render(request, 'account/invite.html', {'msg': msg})
+            return render(request, 'account/invite.html', {'msg': msg})
+    else:
+        form = InviteForm()
+    return render(request, 'account/invite.html', {'form': form})
+
+
+def email_invitations(request):
+    prompt = {"order": "Order of CSV file should be : name,surname, email adress"}
+    if request.method == "POST" and 'upload' in request.POST:
+        print("Im here!")
+        csv_file = request.FILES['file']
+        print(type(csv_file))
+        if not csv_file.name.endswith(".csv"):
+            messages.error(request, "This is not .csv file")
+        data_set = csv_file.read().decode("UTF-8")
+        io_string = io.StringIO(data_set)
+        next(io_string)
+        for column in csv.reader(io_string, delimiter=",", quotechar="|"):
+            _, created = CsvFile.objects.update_or_create(
+                first_name=column[0],
+                last_name=column[1],
+                email=column[2],
+            )
+        context = {}
+        return render(request, 'account/invite.html', context)
+
+    else:
+        return render(request, 'account/invite.html', prompt)
