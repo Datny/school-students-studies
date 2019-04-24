@@ -11,5 +11,5 @@ urlpatterns = [
     path('login', views.login, name='login'),
     path('logout', views.logout, name='logout'),
     path('invite', views.invite, name='invite'),
-  # path('invite', views.email_invitations, name='csvupload'),
+    path('invites', views.email_invitations, name='csvupload'),
 ]

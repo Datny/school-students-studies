@@ -4,7 +4,7 @@
 <div class="container">
 
     <h5>Send Email with unique link for registration</h5>
-    <form method="POST">
+    <form method="POST" action="">
         {% csrf_token %}
         {{ form|crispy }}
         <button class="btn btn-outline-success"  name="send" type="submit">Send</button>
@@ -13,7 +13,7 @@
     <br/>
     <h5>Upload .CSV file with emails for registration</h5>
     {{order}}
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data" action="">
         {% csrf_token %}
         <input type="file" name="file" accept=".csv"/>
         <button class="btn btn-outline-success"  name="upload" type="submit">Upload</button>
