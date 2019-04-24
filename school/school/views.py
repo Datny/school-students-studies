@@ -143,7 +143,30 @@ def subject_edit(request,pk):
         form = SubjectForm(instance=subject)
     return render(request, "subjects.html", {"form": form, "subjects": subjects})
 
+
+def students_grades(request,pk):
+    student = get_object_or_404(Student, pk=pk)
+    subjects = student.subjects.all()
+    grades = Grade.objects.filter(student__id=pk)
+
+    grades_dict = {}
+    for subject in subjects:
+        subject_grades = grades.filter(subject=subject.id)
+        grades_list = [grade.grade for grade in list(subject_grades)]
+        mean = sum(grades_list)/len(grades_list) if len(grades_list) > 0 else ""
+
+        grades_dict[subject.name] = [
+            ", ".join([str(grade.grade) for grade in list(subject_grades)]),
+            mean
+        ]
+
+    return render(
+        request, "student.html",
+        {"student": student, "grades_dict": grades_dict}
+    )
+
 def show_group(request,pk):
     group = get_object_or_404(Group, pk=pk)
     students = Student.objects.filter(group__id=pk)
     return render(request, "group.html", {"group": group, "students": students})
+
