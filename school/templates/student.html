@@ -1,0 +1,23 @@
+{% extends "home.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container mt-3">
+    <h5>{{ student.name }}'s grades </h5>
+
+    <table class="table table-bordered table-hover table-sm mt-3">
+
+        <tbody>
+            {% for subject_name, grades_data in grades_dict.items %}
+            <tr>
+                <td> {{ forloop.counter }}</td>
+                <td> {{ subject_name }}</td>
+                <td>{{ grades_data.0 }}</td>
+                <td> {{ grades_data.1 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}
