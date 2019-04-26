@@ -25,11 +25,21 @@
 
 
                 {% if user.is_authenticated %}
+                {% if perms.school.view_student %}
                 <a class="nav-item nav-link {% active 'studen' %}" href="{%url 'students'%}">Students</a>
+                {% endif %}
+                {% if perms.school.view_teacher %}
                 <a class="nav-item nav-link {% active 'teacher' %}" href="{%url 'teachers'%}">Teachers</a>
+                {% endif %}
+                {% if perms.school.view_grade %}
                 <a class="nav-item nav-link {% active 'grade' %}" href="{%url 'grades'%}">Grades</a>
+                {% endif %}
+                {% if perms.school.view_group %}
                 <a class="nav-item nav-link {% active 'group' %}" href="{%url 'groups'%}">Groups</a>
+                {% endif %}
+                {% if perms.school.view_subject %}
                 <a class="nav-item nav-link {% active 'subject' %}" href="{%url 'subjects'%}">Subjects</a>
+                {% endif %}
             </div>
 
                 <a class="nav-link nav-item" href="{%url 'logout'%}">Logout</a>

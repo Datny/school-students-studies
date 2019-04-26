@@ -58,4 +58,4 @@ class Grade(models.Model):
     descritption = models.CharField(max_length=100)
     
     def __str__(self):
-        return self.grade
+        return str(self.grade)
