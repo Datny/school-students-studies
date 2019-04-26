@@ -11,6 +11,8 @@ from django.core.mail import BadHeaderError, send_mail
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import login
 from django.utils.crypto import get_random_string
+from django.core.validators import validate_email
+
 
 
 
@@ -70,48 +72,59 @@ def logout(request):
 
 def invite(request):
     if request.method == "POST" and 'send' in request.POST:
-        print("Im here! in single inv")
         form = InviteForm(request.POST)
         if form.is_valid():
             reg_token = get_random_string(length=12)
             form.reg_token = reg_token
             form.save()
-            last_email = Invite.objects.latest('email')
+            last_email = Invite.objects.last()
             msg = "Invitation has been sent to: " + str(last_email)
             subject = request.POST.get('subject', 'Registration link for school')
             message = request.POST.get('message', reg_token)
             from_email = request.POST.get('from_email', 'sqlacc@registration.com')
+
 
             if subject and message and from_email:
                 try:
                     send_mail(subject, message, from_email, [last_email])
                 except BadHeaderError:
                     return HttpResponse('Invalid header found.')
-                return render(request, 'account/invite.html', {'msg': msg})
-            return render(request, 'account/invite.html', {'msg': msg})
+                return render(request, 'account/invite.html', {'msg': msg, 'form': form})
+            return render(request, 'account/invite.html', {'msg': msg, 'form': form})
+
     else:
         form = InviteForm()
     return render(request, 'account/invite.html', {'form': form})
 
 
 def email_invitations(request):
-    prompt = {"order": "Order of CSV file should be : name,surname, email adress"}
+
+    prompt = {"order": "Order of CSV file should be : name,surname, email adress", "form": InviteForm()}
     if request.method == "POST" and 'upload' in request.POST:
-        print("Im here!")
+
         csv_file = request.FILES['file']
-        print(type(csv_file))
+
         if not csv_file.name.endswith(".csv"):
-            messages.error(request, "This is not .csv file")
+            return render(request, 'account/invite.html', {"badfiletype": "Uploaded file is not CSV","form": InviteForm()})
+
         data_set = csv_file.read().decode("UTF-8")
         io_string = io.StringIO(data_set)
         next(io_string)
+        invalid_emails_list = []
         for column in csv.reader(io_string, delimiter=",", quotechar="|"):
-            _, created = CsvFile.objects.update_or_create(
+            try:
+                validate_email(column[2].strip())
+                _, created = CsvFile.objects.update_or_create(
                 first_name=column[0],
                 last_name=column[1],
                 email=column[2],
             )
-        context = {}
+            except:
+                invalid_emails_list.append(str(column[2]))
+                print(invalid_emails_list)
+
+        context = {"invalid_emails": invalid_emails_list, "form": InviteForm()}
+
         return render(request, 'account/invite.html', context)
 
     else:

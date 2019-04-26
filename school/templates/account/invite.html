@@ -3,7 +3,8 @@
 {% block content %}
 <div class="container">
 
-    <h5>Send Email with unique link for registration</h5>
+
+    <h5>Send single Email with unique link for registration</h5>
     <form action={% url 'invite' %} method="POST" >
         {% csrf_token %}
         {{ form|crispy }}
@@ -23,5 +24,14 @@
         {%endfor%}
     {% endif %}
     </form>
+    {%if invalid_emails%}
+     <p>You had few invalid emails in your CSV file:</p>
+    {%for email in invalid_emails%}
+    <p>{{email}}</p>
+
+    {% endfor %}
+    {% endif %}
+</div><br/>
+    <h3>{{badfiletype}}</h3>
 </div>
 {% endblock %}
