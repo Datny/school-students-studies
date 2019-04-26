@@ -23,5 +23,10 @@
         {%endfor%}
     {% endif %}
     </form>
+     <p>You had few invalid emails in your CSV file:</p>
+    {%for email in invalid_emails%}
+    <p>{{email}}</p>
+
+    {% endfor %}
 </div>
 {% endblock %}
