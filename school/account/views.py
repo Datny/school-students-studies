@@ -71,7 +71,6 @@ def logout(request):
 
 def invite(request):
     if request.method == "POST" and 'send' in request.POST:
-        print("Im here! in single inv")
         form = InviteForm(request.POST)
         if form.is_valid():
             reg_token = get_random_string(length=12)
@@ -88,21 +87,22 @@ def invite(request):
                     send_mail(subject, message, from_email, [last_email])
                 except BadHeaderError:
                     return HttpResponse('Invalid header found.')
-                return render(request, 'account/invite.html', {'msg': msg})
-            return render(request, 'account/invite.html', {'msg': msg})
+                return render(request, 'account/invite.html', {'msg': msg, 'form': form})
+            return render(request, 'account/invite.html', {'msg': msg, 'form': form})
     else:
         form = InviteForm()
     return render(request, 'account/invite.html', {'form': form})
 
 
 def email_invitations(request):
-    prompt = {"order": "Order of CSV file should be : name,surname, email adress"}
+    prompt = {"order": "Order of CSV file should be : name,surname, email adress", "form": InviteForm()}
     if request.method == "POST" and 'upload' in request.POST:
 
         csv_file = request.FILES['file']
 
         if not csv_file.name.endswith(".csv"):
-            messages.error(request, "This is not .csv file")
+            return render(request, 'account/invite.html', {"badfiletype": "Uploaded file is not CSV","form": InviteForm()})
+
         data_set = csv_file.read().decode("UTF-8")
         io_string = io.StringIO(data_set)
         next(io_string)
@@ -119,7 +119,7 @@ def email_invitations(request):
                 invalid_emails_list.append(str(column[2]))
                 print(invalid_emails_list)
 
-        context = {"invalid_emails": invalid_emails_list}
+        context = {"invalid_emails": invalid_emails_list, "form": InviteForm()}
         return render(request, 'account/invite.html', context)
 
     else:
