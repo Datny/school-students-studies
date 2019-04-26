@@ -76,11 +76,12 @@ def invite(request):
             reg_token = get_random_string(length=12)
             form.reg_token = reg_token
             form.save()
-            last_email = Invite.objects.latest('email')
+            last_email = Invite.objects.last()
             msg = "Invitation has been sent to: " + str(last_email)
             subject = request.POST.get('subject', 'Registration link for school')
             message = request.POST.get('message', reg_token)
             from_email = request.POST.get('from_email', 'sqlacc@registration.com')
+            print(last_email)
 
             if subject and message and from_email:
                 try:
@@ -109,7 +110,7 @@ def email_invitations(request):
         invalid_emails_list = []
         for column in csv.reader(io_string, delimiter=",", quotechar="|"):
             try:
-                validate_email(column[2])
+                validate_email(column[2].strip())
                 _, created = CsvFile.objects.update_or_create(
                 first_name=column[0],
                 last_name=column[1],
