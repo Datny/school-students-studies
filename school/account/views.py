@@ -15,6 +15,7 @@ from django.core.validators import validate_email
 
 
 
+
 def user_login(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
@@ -81,7 +82,7 @@ def invite(request):
             subject = request.POST.get('subject', 'Registration link for school')
             message = request.POST.get('message', reg_token)
             from_email = request.POST.get('from_email', 'sqlacc@registration.com')
-            print(last_email)
+
 
             if subject and message and from_email:
                 try:
@@ -90,12 +91,14 @@ def invite(request):
                     return HttpResponse('Invalid header found.')
                 return render(request, 'account/invite.html', {'msg': msg, 'form': form})
             return render(request, 'account/invite.html', {'msg': msg, 'form': form})
+
     else:
         form = InviteForm()
     return render(request, 'account/invite.html', {'form': form})
 
 
 def email_invitations(request):
+
     prompt = {"order": "Order of CSV file should be : name,surname, email adress", "form": InviteForm()}
     if request.method == "POST" and 'upload' in request.POST:
 
@@ -121,6 +124,7 @@ def email_invitations(request):
                 print(invalid_emails_list)
 
         context = {"invalid_emails": invalid_emails_list, "form": InviteForm()}
+
         return render(request, 'account/invite.html', context)
 
     else:

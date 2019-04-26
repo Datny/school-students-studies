@@ -3,6 +3,7 @@
 {% block content %}
 <div class="container">
 
+
     <h5>Send single Email with unique link for registration</h5>
     <form action={% url 'invite' %} method="POST" >
         {% csrf_token %}
