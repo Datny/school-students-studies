@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container">
-
+    {% if perms.school.add_subject %}
     <h5>Add subject:</h5>
     <form method="POST">
         {% csrf_token %}
@@ -32,6 +32,7 @@
             </div>
         </div>
     </form>
+    {% endif %}
 </div>
 <br/>
 <div class="container">
@@ -49,7 +50,11 @@
                 <td> {{subject.name}}</td>
                 <td> {{subject.teacher}}</td>
                 <td> {{subject.group}}</td>
-                <td><a class="btn btn-default" href="{% url 'subject_edit' pk=subject.pk %}">EDIT</a></td>
+                <td>
+                    {% if perms.school.edit_subject %}
+                    <a class="btn btn-default" href="{% url 'subject_edit' pk=subject.pk %}">EDIT</a>
+                    {% endif %}
+                </td>
             </tr>
             </tbody>
             {% endfor %}

@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container">
-
+    {% if perms.school.add_teacher %}
     <h5>Add teacher:</h5>
     <form method="POST">
         {% csrf_token %}
@@ -25,6 +25,7 @@
             </div>
         </div>
     </form>
+    {% endif %}
 </div>
 <br/>
 <div class="container">
@@ -42,7 +43,11 @@
             <tr>
                 <td> {{teacher.name}}</td>
                 <td> {{teacher.description}}</td>
-                <td><a class="btn btn-default" href="{% url 'teacher_edit' pk=teacher.pk %}">EDIT</a></td>
+                <td>
+                    {% if perms.school.edit_teacher %}
+                    <a class="btn btn-default" href="{% url 'teacher_edit' pk=teacher.pk %}">EDIT</a>
+                    {% endif %}
+                </td>
                 
             </tr>
             </tbody>

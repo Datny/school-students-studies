@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
 
-
+    {% if perms.school.add_student %}
     <h5>Add Student:</h5>
     <form method="POST">
         {% csrf_token %}
@@ -32,6 +32,7 @@
             </div>
         </div>
     </form>
+    {% endif %}
 </div>
 <br/>
 <div class="container">
@@ -51,7 +52,11 @@
             <td> <a href="{% url 'students_grades' pk=student.pk %}"> {{student.name}}</a></td>
             <td> {{student.group}}</td>
             <td> {{student.get_subjects}}</td>
-            <td><a class="btn btn-default" href="{% url 'student_edit' pk=student.pk %}">EDIT</a></td>
+            <td>
+                {% if perms.school.edit_student %}
+                <a class="btn btn-default" href="{% url 'student_edit' pk=student.pk %}">EDIT</a>
+                {% endif %}
+            </td>
         </tr>
          <tbody>
         {% endfor %}
