@@ -6,7 +6,14 @@
     <h5>{{ student.name }}'s grades </h5>
 
     <table class="table table-bordered table-hover table-sm mt-3">
-
+<thead>
+            <tr>
+                <td></td>
+                <td>Subject</td>
+                <td>Grades</td>
+                <td>Mean</td>
+            </tr>
+            </thead>
         <tbody>
             {% for subject_name, grades_data in grades_dict.items %}
             <tr>
