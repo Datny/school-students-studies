@@ -114,14 +114,17 @@ def email_invitations(request):
         for column in csv.reader(io_string, delimiter=",", quotechar="|"):
             try:
                 validate_email(column[2].strip())
-                _, created = CsvFile.objects.update_or_create(
-                first_name=column[0],
-                last_name=column[1],
-                email=column[2],
-            )
+
+                if column[2] != Invite.objects.get(email=column[2]):
+                    _, created = CsvFile.objects.update_or_create(
+                    first_name=column[0],
+                    last_name=column[1],
+                    email=column[2],
+                )
             except:
                 invalid_emails_list.append(str(column[2]))
-                print(invalid_emails_list)
+
+
 
         context = {"invalid_emails": invalid_emails_list, "form": InviteForm()}
 
@@ -129,3 +132,7 @@ def email_invitations(request):
 
     else:
         return render(request, 'account/invite.html', prompt)
+
+
+
+
