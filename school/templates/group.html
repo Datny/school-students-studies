@@ -6,16 +6,49 @@
     <h5>Students within group {{ group.name }}</h5>
 
     <table class="table table-bordered table-hover table-sm mt-3">
-
+        <thead>
+            <tr>
+                <td></td>
+                <td>Student</td>
+            </tr>
+            </thead>
         <tbody>
             {% for student in students %}
             <tr>
                 <td> {{ forloop.counter }}</td>
-                <td> {{ student.name }}</td>
+                <td> <a href="{% url 'students_grades' pk=student.pk %}"> {{student.name}}</a></td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 
+    <h5>Add student to group</h5>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-4" style="display: none">
+                {{ form.group|as_crispy_field }}
+            </div>
+
+            <div class="col-4">
+                {{ form.name|as_crispy_field }}
+            </div>
+
+            <div class="col-4">
+                {{ form.subjects|as_crispy_field }}
+            </div>
+
+            </div>
+        <div class="row">
+            <div class="col-1 text-nowrap">
+                <p>
+                    <h7>* - Field required</h7>
+                </p>
+            </div>
+            <div class="col-9 text-right">
+                <button class="btn btn-outline-success" type="submit">Save</button>
+            </div>
+        </div>
+    </form>
 </div>
 {% endblock %}
