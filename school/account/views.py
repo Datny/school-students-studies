@@ -97,7 +97,6 @@ def email_invitations(request):
                     email=column[2],
                 )
 
-
             except:
                 invalid_emails_list.append(str(column[2]))
 
