@@ -170,7 +170,7 @@ def students_grades(request,pk):
     for subject in subjects:
         subject_grades = grades.filter(subject=subject.id)
         grades_list = [grade.grade for grade in list(subject_grades)]
-        mean = sum(grades_list)/len(grades_list) if len(grades_list) > 0 else ""
+        mean = round(sum(grades_list)/len(grades_list), 2) if len(grades_list) > 0 else ""
 
         grades_dict[subject.name] = [
             ", ".join([str(grade.grade) for grade in list(subject_grades)]),
@@ -185,5 +185,18 @@ def students_grades(request,pk):
 def show_group(request,pk):
     group = get_object_or_404(Group, pk=pk)
     students = Student.objects.filter(group__id=pk)
-    return render(request, "group.html", {"group": group, "students": students})
+
+    if request.method == "POST":
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request,
+                  "group.html",
+                  {"group": group, "students": students, "form": form})
+    else:
+        form = StudentForm(initial= {"group": group})
+
+    return render(request,
+                  "group.html",
+                  {"group": group, "students": students, "form": form})
 
