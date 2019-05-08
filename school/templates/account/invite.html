@@ -30,7 +30,8 @@
     <button class="btn btn-outline-success"  name="sendmass" type="submit">Send</button>
     </form>
     {%if invalid_emails%}
-    <p>You had few invalid or emails in your CSV file:</p>
+
+     <p>You had few invalid or emails in your CSV file:</p>
     {%for email in invalid_emails%}
     <p>{{email}}</p>
 

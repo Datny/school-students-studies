@@ -97,18 +97,6 @@ def email_invitations(request):
                     email=column[2],
                 )
 
-            except:
-                invalid_emails_list.append(str(column[2]))
-
-
-
-        context = {"invalid_emails": invalid_emails_list, "form": InviteForm()}
-
-        return render(request, 'account/invite.html', context)
-
-    else:
-        return render(request, 'account/invite.html', prompt)
-
 
 def send_mass_email(request):
     if request.method == "POST":
@@ -134,6 +122,18 @@ def send_sms(request):
         form = SendSmsForm()
 
     return render(request, "account/sms.html", {"form": form})
+
+def send_mass_email():
+    email_list = list(CsvFile.objects.all())
+    messages=[]
+    for email in email_list:
+        messages.append('Link for acc registration',
+                    'Here is the message',
+                    'from@example.com',
+                    [email])
+
+
+
 
 
 
