@@ -1,4 +1,4 @@
-import csv, io
+import csv,  io
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.shortcuts import HttpResponse
@@ -7,7 +7,7 @@ from .forms import LoginForm, InviteForm
 from django.contrib.auth.models import User
 from django.contrib import auth
 from .models import Invite, CsvFile
-from django.core.mail import BadHeaderError, send_mail
+from django.core.mail import BadHeaderError, send_mail, send_mass_mail
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import login
 from django.utils.crypto import get_random_string
@@ -97,7 +97,7 @@ def email_invitations(request):
                     email=column[2],
                 )
 
-                    send_mass_email()
+
             except:
                 invalid_emails_list.append(str(column[2]))
 
@@ -111,15 +111,14 @@ def email_invitations(request):
         return render(request, 'account/invite.html', prompt)
 
 
-def send_mass_email():
-    email_list = list(CsvFile.objects.all())
-    messages=[]
-    for email in email_list:
-        messages.append('Link for acc registration',
-                    'Here is the message',
-                    'from@example.com',
-                    [email])
-
+def send_mass_email(request):
+    if request.method == "POST":
+        email_list = list(CsvFile.objects.all())
+        messages = []
+        for email in email_list:
+            messages.append('Link for acc registration', 'Here is the message', 'from@example.com', [email])
+        tuple_messages = tuple(messages)
+        send_mass_mail(tuple_messages, fail_silently=False)
 
 
 
