@@ -135,6 +135,20 @@ def send_mass_email(request):
         send_mass_mail(tuple_messages, fail_silently=False)
 
 
+def send_sms(request):
+
+    if request.method == "POST":
+        form = SendSmsForm(request.POST)
+        if form.is_valid():
+            sms_text = form.cleaned_data['sms_text']
+            reciver = form.cleaned_data['reciver']
+
+            return render(request, "account/sms.html", {"form": form})
+
+    else:
+        form = SendSmsForm()
+
+    return render(request, "account/sms.html", {"form": form})
 
 
 

@@ -17,6 +17,7 @@ class InviteForm(forms.ModelForm):
 
 
 
+
 def check_if_phone_number(value):
     pattern ="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$"
     match = re.search(pattern, value)
@@ -28,6 +29,7 @@ def check_if_phone_number(value):
 class SendSmsForm(forms.Form):
     sms_text = forms.CharField(max_length=155,widget=forms.Textarea)
     reciver = forms.CharField(max_length=12, validators=[check_if_phone_number])
+
 
 
 
