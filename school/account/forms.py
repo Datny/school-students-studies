@@ -11,3 +11,14 @@ class InviteForm(forms.ModelForm):
     class Meta:
         model = Invite
         fields = ('email',)
+
+
+class SendSmsForm(forms.Form):
+    sms_text = forms.CharField(max_length=155,widget=forms.Textarea)
+    reciver = forms.CharField(max_length=12)
+
+
+
+
+
+
