@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.shortcuts import HttpResponse
 from django.contrib.auth import authenticate, login
-from .forms import LoginForm, InviteForm
+from .forms import LoginForm, InviteForm, SendSmsForm
 from django.contrib.auth.models import User
 from django.contrib import auth
 from .models import Invite, CsvFile
@@ -146,6 +146,20 @@ def send_mass_email(request):
         send_mass_mail(tuple_messages, fail_silently=False)
 
 
+def send_sms(request):
+
+    if request.method == "POST":
+        form = SendSmsForm(request.POST)
+        if form.is_valid():
+            sms_text = form.cleaned_data['sms_text']
+            reciver = form.cleaned_data['reciver']
+
+            return render(request, "account/sms.html", {"form": form})
+
+    else:
+        form = SendSmsForm()
+
+    return render(request, "account/sms.html", {"form": form})
 
 
 
