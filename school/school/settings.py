@@ -136,7 +136,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 INTERNAL_IPS = ['127.0.0.1']
 
 
-SENDSMS_BACKEND = 'myapp.mysmsbackend.SmsBackend'
+
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_HOST = 'smtp.mailgun.org'
 EMAIL_HOST_USER = "postmaster@sandbox5da0b7d4866d4b31bd0229d525cc3cd6.mailgun.org"

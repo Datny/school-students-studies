@@ -140,9 +140,9 @@ def send_sms(request):
     if request.method == "POST":
         form = SendSmsForm(request.POST)
         if form.is_valid():
-            sms_text = form.cleaned_data['sms_text']
-            reciver = form.cleaned_data['reciver']
-
+            reciver_number = form.cleaned_data['reciver']
+            text = form.cleaned_data['sms_text']
+            api.send_sms(body=text, from_phone='666666666', to=[reciver_number])
             return render(request, "account/sms.html", {"form": form})
 
     else:
