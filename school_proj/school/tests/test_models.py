@@ -12,3 +12,9 @@ class TeacherModelTest(TestCase):
         teacher = Teacher.objects.get(id=1)
         field_label = teacher._meta.get_field('name').verbose_name
         self.assertEquals(field_label, 'name')
+
+    def test_first_name_max_length(self):
+        teacher = Teacher.objects.get(id=1)
+        max_length = teacher._meta.get_field('name').max_length
+        self.assertEquals(max_length, 100)
+
