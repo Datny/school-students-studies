@@ -27,7 +27,7 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponse("authentication success") #redirect to home
+                    return render(request, "home.html") #redirect to home
                 else:
                     error = "Account is blocked"
             else:
@@ -35,7 +35,7 @@ def user_login(request):
     else:
         form = LoginForm()
     return render(request, "account/login.html", {"form": form, "error": error})
-    return render(request, "account/login.html", {"form": form})
+
 
 
 def logout(request):
