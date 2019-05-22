@@ -27,7 +27,7 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponse("authentication success") #redirect to home
+                    return render(request, "home.html") #redirect to home
                 else:
                     error = "Account is blocked"
             else:
@@ -35,7 +35,7 @@ def user_login(request):
     else:
         form = LoginForm()
     return render(request, "account/login.html", {"form": form, "error": error})
-    return render(request, "account/login.html", {"form": form})
+
 
 
 def logout(request):
@@ -96,18 +96,67 @@ def email_invitations(request):
                     last_name=column[1],
                     email=column[2],
                 )
+<<<<<<< HEAD:school_proj/account/views.py
+            except:
+                invalid_emails_list.append(str(column[2]))
+=======
 
 
             except:
                 invalid_emails_list.append(str(column[2]))
 
 
+>>>>>>> b306f20440dbc2ad6b9f57f51a3e44e67d9d496d:school_proj/account/views.py
 
-        context = {"invalid_emails": invalid_emails_list, "form": InviteForm()}
 
-        return render(request, 'account/invite.html', context)
+def send_mass_email(request):
+    if request.method == "POST":
+        email_list = list(CsvFile.objects.all())
+        messages = []
+        for email in email_list:
+            messages.append('Link for acc registration', 'Here is the message', 'from@example.com', [email])
+        tuple_messages = tuple(messages)
+        send_mass_mail(tuple_messages, fail_silently=False)
+
+
+def send_sms(request):
+
+    if request.method == "POST":
+        form = SendSmsForm(request.POST)
+        if form.is_valid():
+            reciver_number = form.cleaned_data['reciver']
+            text = form.cleaned_data['sms_text']
+            api.send_sms(body=text, from_phone='666666666', to=[reciver_number])
+            return render(request, "account/sms.html", {"form": form})
 
     else:
+        form = SendSmsForm()
+
+    return render(request, "account/sms.html", {"form": form})
+
+def send_mass_email(request):
+    if request.method == "POST":
+        email_list = list(CsvFile.objects.all())
+        messages = []
+        for email in email_list:
+            messages.append('Link for acc registration', 'Here is the message', 'from@example.com', [email])
+        tuple_messages = tuple(messages)
+        send_mass_mail(tuple_messages, fail_silently=False)
+
+
+def send_sms(request):
+
+    if request.method == "POST":
+        form = SendSmsForm(request.POST)
+        if form.is_valid():
+            reciver_number = form.cleaned_data['reciver']
+            text = form.cleaned_data['sms_text']
+            api.send_sms(body=text, from_phone='666666666', to=[reciver_number])
+            return render(request, "account/sms.html", {"form": form})
+
+    else:
+<<<<<<< HEAD:school_proj/account/views.py
+=======
         return render(request, 'account/invite.html', prompt)
 
 
@@ -132,6 +181,7 @@ def send_sms(request):
             return render(request, "account/sms.html", {"form": form})
 
     else:
+>>>>>>> b306f20440dbc2ad6b9f57f51a3e44e67d9d496d:school_proj/account/views.py
         form = SendSmsForm()
 
     return render(request, "account/sms.html", {"form": form})
