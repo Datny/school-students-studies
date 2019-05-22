@@ -16,8 +16,6 @@ class InviteForm(forms.ModelForm):
         fields = ('email',)
 
 
-
-
 def check_if_phone_number(value):
     pattern ="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$"
     match = re.search(pattern, value)

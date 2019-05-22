@@ -12,6 +12,5 @@ urlpatterns = [
     path('invites', views.email_invitations, name='csvupload'),
     path('invites', views.send_mass_email, name='sendmass'),
     path('sms/', views.send_sms, name="sms"),
-
 ]
 
