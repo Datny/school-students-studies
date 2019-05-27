@@ -44,7 +44,7 @@ jobs:
       - run:
           name: run tests
           command: |
-            ~/repo/venv/bin/activate
+            source ~/repo/venv/bin/activate
             python manage.py test
 
       - store_artifacts:
