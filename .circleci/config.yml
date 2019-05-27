@@ -44,6 +44,7 @@ jobs:
       - run:
           name: run tests
           command: |
+            ls /home/circleci/repo/venv/bin/activate
             /home/circleci/repo/venv/bin/activate
             python manage.py test
 
