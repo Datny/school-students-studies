@@ -44,7 +44,7 @@ jobs:
       - run:
           name: run tests
           command: |
-            ~/repo/venv/bin/activate
+            ./venv/bin/activate
             ls -all
             pwd
             python manage.py test
