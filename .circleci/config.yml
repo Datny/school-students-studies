@@ -45,7 +45,7 @@ jobs:
           name: run tests
           command: |
             ls -R ../../../ 
-            . venv/bin/activate
+            /home/circleci/repo/venv/bin/activate
             python manage.py test
 
       - store_artifacts:
