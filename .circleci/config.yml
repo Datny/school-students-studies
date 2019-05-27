@@ -44,6 +44,7 @@ jobs:
       - run:
           name: run tests
           command: |
+            ../../../ ls -R
             . venv/bin/activate
             python manage.py test
 
