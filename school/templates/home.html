@@ -37,6 +37,9 @@
                 {% if perms.school.view_group %}
                 <a class="nav-item nav-link {% active 'group' %}" href="{%url 'groups'%}">Groups</a>
                 {% endif %}
+                {% if perms.school.top5 %}
+                <a class="nav-item nav-link {% active 'top5' %}" href="{%url 'top5'%}">TOP 5</a>
+                {% endif %}
                 {% if perms.school.view_subject %}
                 <a class="nav-item nav-link {% active 'subject' %}" href="{%url 'subjects'%}">Subjects</a>
                 {% endif %}
