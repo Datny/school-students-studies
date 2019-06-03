@@ -42,10 +42,15 @@ jobs:
           key: v1-dependencies-{{ checksum "requirements.txt" }}
 
       - run:
+          name: run server
+          command: |
+            python school_proj/manage.py runserver
+          background: true
+
+      - run:
           name: run tests
           command: |
             . venv/bin/activate
-            python school_proj/manage.py runserver
             python school_proj/manage.py test
 
       - store_artifacts:
