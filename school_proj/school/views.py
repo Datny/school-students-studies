@@ -200,3 +200,23 @@ def show_group(request,pk):
                   "group.html",
                   {"group": group, "students": students, "form": form})
 
+
+def top5(request):
+    students = Student.objects.order_by("group__name", "name")
+    students_means = {}
+    for student in students:
+        grades = Grade.objects.filter(student__id=student.pk)
+        grades_dict = {}
+        for subject in student.subjects.all():
+            subject_grades = grades.filter(subject=subject.id)
+            grades_list = [grade.grade for grade in list(subject_grades)]
+            mean = round(sum(grades_list) / len(grades_list), 2) if len(grades_list) > 0 else 0
+            if mean > 0:
+                grades_dict[subject.name] = mean
+
+        student_mean_grade = round(sum(grades_dict.values()) / len(grades_dict.values()), 2) if len(grades_dict.values()) > 0 else 0
+        students_means[student.name] = student_mean_grade
+
+    top5 = sorted(students_means.items(), key=lambda kv: (float(kv[1]), kv[0]), reverse=True)[:5]
+
+    return render(request, "top5.html", {"students": students, "top5": top5})
