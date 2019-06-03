@@ -44,6 +44,7 @@ jobs:
       - run:
           name: run server
           command: |
+            . venv/bin/activate
             python school_proj/manage.py runserver
           background: true
 
